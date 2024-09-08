@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AI Tutor</title>
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+	<h1 class="title">MAT AI Assistant</h1>
+	<div class="input">
+
+		<!--h3 class="course-title">Select a course</h3-->
+		<textarea id="userInput" rows="4" cols="50" placeholder="Enter your message here..."
+			class="input-block"></textarea>
+
+		<select name="course-select" id="course-select" class="course-select">
+			<option value="None">Course</option>
+			<option value="MATH 203">MATH 203</option>
+			<option value="MATH 204">MATH 204</option>
+			<option value="MATH 205">MATH 205</option>
+		</select>
+
+
+		<button onclick="sendQuestion()" id="sendButton" class="send-button">Ask</button>
+
+	</div>
+
+	<h2 class="response-title">Response</h2>
+	<span class="output" id="output">
+
+		<p>
+			Hello! I'm an AI chatbot powered by Chat-GPT. I use context specific to Concordia to provide
+			better explanations. AI makes mistakes, so check important information.
+		</p>
+	</span>
+
+	<style>
+		.title {
+			margin-bottom: 1em;
+			margin-top: 2em;
+		}
+
+		.course-title {
+			margin-top: 1em;
+			margin-bottom: 0.5em;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.course-select {
+			display: block;
+			margin-bottom: 4em;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 0.5em;
+			background-color: #1d1d1d;
+			color: white;
+			border-radius: 5px;
+			padding: 5px 10px;
+
+		}
+
+
+		.send-button {
+			margin-bottom: 2em;
+			display: block;
+			border: solid;
+			border-color: #505050;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 8px 15px;
+			border-radius: 5px;
+			background-color: #1d1d1d;
+			color: white;
+
+		}
+
+		.send-button:hover {
+			border-color: white;
+			background-color: #303030;
+		}
+
+		.send-button:active {
+			background-color: white;
+		}
+
+
+		.title,
+		.response-title {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.input {
+			background-color: #232323;
+			width: 80%;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 3em;
+			padding: 15px;
+			border-radius: 10px;
+			border-style: solid;
+			border-color: #505050
+		}
+
+		@media (min-width: 750px) {
+			.input {
+				width: 45em;
+			}
+		}
+
+		.input-block {
+			margin-top: 3em;
+			margin-bottom: 0em;
+			color: white;
+			display: block;
+			margin-left: auto;
+			font-family: "Georgia", serif;
+			margin-right: auto;
+			background-color: #1b1b1b;
+			color: white;
+			padding: 5px 10px;
+			border-radius: 10px;
+		}
+
+
+		.output {
+			border-radius: 10px;
+			border-style: solid;
+			border-color: #505050;
+			display: block;
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 15px;
+			word-wrap: break-word;
+			background-color: #232323;
+		}
+
+
+		@media (min-width: 750px) {
+			.output {
+				width: 45em;
+			}
+		}
+
+		body {
+			background-color: #1b1b1b;
+			color: white;
+			font-family: "Helvetica", serif;
+		}
+
+		hr {
+			border-color: #000000;
+		}
+	</style>
+	<script>
+		async function sendQuestion() {
+			const text = document.getElementById("userInput").value;
+			const response_block = document.getElementById("output");
+			const course = document.getElementById("course-select").value;
+			if (course === "None") {
+				response_block.innerHTML = "<p>Please select the course you are taking.</p>"
+				return;
+			}
+			response_block.innerHTML = "<p>Loading. This might take a few seconds.</p>"
+			const request = new Request('/question', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Course': course
+				},
+				body: JSON.stringify({text: text})
+			})
+			console.log(text);
+			fetch(request)
+				.then((response) => response.text())
+				.then((data) => {
+					console.log('Received prompt from gpt api:\n', data);
+					response_block.innerHTML = data;
+					MathJax.typeset([response_block]);
+					response_block.innerHTML = marked.parse(response_block.innerHTML);
+
+
+				})
+				.catch((error) => {
+					console.error('Error:', error);
+				});
+
+		}
+	</script>
+</body>
+
+</html>

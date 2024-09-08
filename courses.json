@@ -1,0 +1,17 @@
+{
+    "MATH 203": {
+	"name": "Differential Calculus",
+	"content": "limits, derivatives, implicit differentiation, linearization, related rates, optimization",
+	"prerequisite": "linear slope, functions, algebra, geometry, trigonometry"
+    },
+    "MATH 204": {
+	"name": "Vectors and Matrices",
+	"content": "matrices, gaussian elimination, vectors, dot and cross product, lines, planes, basis, eigenvectors",
+	"prerequisite": "functions, algebra, geometry, trigonometry"
+    },
+    "MATH 205": {
+	"name": "Integral Calculus",
+	"prerequisite": "derivative calculus",
+	"content": "sum notation, area under curves, riemmann sums, integrals and methods of integration, sums, McLauren series"
+    }
+}
