@@ -1,33 +1,37 @@
 from flask import Flask, request, render_template
 import gpt
 
-# TODO: add an "assume no previous knowledge of {concepts}" to prompt
-# TODO: brevity dropdown
+# TODO: Add a dropdown that controls how detailed or consise the response is
+# TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
+
+# Initialize the server library
 app = Flask(__name__)
 
-
+# Handles showing the website's main page
 @app.route('/')
 def index():
     return render_template("index.html")
 
 
+# Handles clicking the "Ask" button
 @app.route('/question/', methods=['POST'])
 def question():
 
     if request.method == 'POST':
 
-        # Length of json without message:
-        empty_message_length = 11
-        message_length = len(request.data) - empty_message_length
-        if message_length > 2500:
+        # If the question the student asks is more than a certain number of characters, reject the question
+        # Each character/word of the question contributes to the cost of the API call
+        if len(request.data) > 2500:
             return "Message too long!"
 
         # Get course type
         course = request.headers["Course"]
 
-        # Message is valid length, get data and request gpt response
+        # Get the question that the user asked from the HTTP request
         data = request.get_json()
         message = data["text"]
+
+        # Ask the question with the context of the selected course
         gpt_response = gpt.ask(message, course, example_response=False)
 
         return gpt_response
@@ -36,5 +40,6 @@ def question():
     return "Invalid request type", 400
 
 
+# Run the server if this file is run
 if __name__ == '__main__':
     app.run(port=8070, debug=True)
