@@ -1,5 +1,13 @@
 # tutoring-ai
 
+## API key
+
+Each prompt requested from OpenAI costs money. You can expect each testing session, depending on how many questions are asked and how long the responses from GPT are, to cost between 5-25 cents. A minimum pre-payment of $5 is required to start using the API. This unfortunately means that unless funded by the MAT Tutoring center, testing this project requires $5 for each new user.
+
+API keys can be obtained through the [OpenAI API site](platform.openai.com). This project requires your OPENAI_API_KEY environment variable to be set, as explained on the first two paragraphs of the [OpenAI Quickstart Guide](https://platform.openai.com/docs/quickstart).
+
+
+
 ## Installation
 
 ### Prerequisites
@@ -19,7 +27,9 @@ pip install -r requirements.txt
 ```
 
 ## Using the site
+Open a terminal in the directory that the project is in and run:
 ```python3 server.py```  
+Make sure this terminal window stays open or running in the background while using the project. Close the terminal or press Control-C when done. After running this command, enter the following link into your browser:
 
 http://localhost:8070
 
