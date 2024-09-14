@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
-import gpt
+from api.openai_api import ask
+from prompt.prompt_manager import generatePrompt
 
 # TODO: Add a dropdown that controls how detailed or consise the response is
 # TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
@@ -31,8 +32,11 @@ def question():
         data = request.get_json()
         message = data["text"]
 
+        # Generate the prompt based on the course
+        prompt = generatePrompt(course)
+
         # Ask the question with the context of the selected course
-        gpt_response = gpt.ask(message, course, example_response=False)
+        gpt_response = ask(message, prompt) 
 
         return gpt_response
 
