@@ -16,7 +16,7 @@ API keys can be obtained through the [OpenAI API site](platform.openai.com). Thi
 
 ### Installing the project
 
-Install the release zip file from the releases tab on the Github page.
+Download the release zip file from the releases tab on the Github page.
 
 Unzip the file and drag the server folder somewhere on your system. 
 
