@@ -16,6 +16,8 @@ API keys can be obtained through the [OpenAI API site](platform.openai.com). Thi
 
 ### Installing the project
 
+Install the release zip file from the releases tab on the Github page.
+
 Unzip the file and drag the server folder somewhere on your system. 
 
 Rename example.env to .env and replace the placeholder with your API key.
