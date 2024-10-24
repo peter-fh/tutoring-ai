@@ -45,5 +45,12 @@ def question():
 
 
 # Run the server if this file is run
+port = 8070
 if __name__ == '__main__':
+    print("\n\n\n")
+    print("=" * 70)
+    print(f'{"=    Enter the following url into the browser:":<69}=')
+    print(f'{"=    http://127.0.0.1:" + str(port):<69}=')
+    print("=" * 70)
     app.run(port=8070, debug=True)
+

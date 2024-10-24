@@ -12,23 +12,18 @@ API keys can be obtained through the [OpenAI API site](platform.openai.com). Thi
 
 ### Prerequisites
 
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Python](https://www.python.org/downloads/)
 
 ### Installing the project
-Open a terminal in the directory you wish to copy the project to, and run the following commands:
-``` bash
-git clone https://github.com/peter-fh/tutoring-ai.git
-cd tutoring-ai
-python3 -m venv env
-source env/bin/activate
-python3 -m pip install --upgrade pip
-pip install -r requirements.txt
-```
+
+Unzip the file and drag the server folder somewhere on your system. 
+
+Rename example.env to .env and replace the placeholder with your API key.
+
 
 ## Using the site
-Open a terminal in the directory that the project is in and run:
-```python3 server.py```  
+Double click the run.bat (windows) or run.command (macos) file. The server should now be open and the site can be reached.
+
 Make sure this terminal window stays open or running in the background while using the project. Close the terminal or press Control-C when done. After running this command, enter the following link into your browser:
 
 http://localhost:8070
