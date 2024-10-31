@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt
+import json
 
 # TODO: Add a dropdown that controls how detailed or consise the response is
 # TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
@@ -28,15 +29,17 @@ def question():
         # Get course type
         course = request.headers["Course"]
 
+        # Get brevity level
+        brevity = request.headers["Brevity"]
+
         # Get the question that the user asked from the HTTP request
-        data = request.get_json()
-        message = data["text"]
+        message = request.get_json()
 
         # Generate the prompt based on the course
-        prompt = generatePrompt(course)
+        prompt = generatePrompt(course, brevity)
 
         # Ask the question with the context of the selected course
-        gpt_response = ask(message, prompt) 
+        gpt_response = ask(message, prompt, dummy_response=False) 
 
         return gpt_response
 
@@ -52,5 +55,5 @@ if __name__ == '__main__':
     print(f'{"=    Enter the following url into the browser:":<69}=')
     print(f'{"=    http://127.0.0.1:" + str(port):<69}=')
     print("=" * 70)
-    app.run(port=8070, debug=True)
+    app.run(port=8070)
 

@@ -1,45 +1,97 @@
-
-.title {
-	margin-bottom: 1em;
-	margin-top: 2em;
-}
-
-.course-title {
-	margin-top: 1em;
-	margin-bottom: 0.5em;
+.sidebar {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
+	text-align: center;
+	position: fixed;
+	width: 20vw;
+	height: 100vh;
+	background-color: #232323;
+	padding: 1em 2em 2em 2em;
+	z-index: 98;
+	overflow-y: auto;
 }
 
-.course-select {
-	display: block;
-	margin-bottom: 4em;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 0.5em;
+
+.select-box{
+	margin: 0em 0em 0em 0em;
 	background-color: #1d1d1d;
 	color: white;
 	border-radius: 5px;
-	padding: 5px 10px;
+	padding: 5px 5px;
 
 }
+.disclaimer {
+	text-align: left;
+	padding: 0em 1em 0em 1em;
+}
 
+.chat {
+	width: 80vw;
+	padding-left: 25vw;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-bottom: 20vh;
+}
+
+.output {
+	text-align: left;
+	background-color: #232323;
+	padding: 1em 1em 1em 1em;
+	width: 80%;
+	border-radius: 10px;
+	border-color: #505050;
+	border-style: solid;
+	margin-bottom: 1em;
+}
+
+.question {
+	text-align: left;
+	background-color: #303030;
+	padding: 1em 1em 1em 1em;
+	width: 80%;
+	border-radius: 10px;
+	border-color: #505050;
+	border-style: solid;
+	margin-bottom: 1em;
+}
+
+.input {
+	display: flex;
+	position: fixed;
+	bottom: 0px;
+	height: 12%;
+	width: 32%;
+	background-color: #232323;
+	padding: 1em 1em 1em 1em;
+	border-radius: 10px;
+	border-color: #505050;
+	border-style: solid;
+	z-index: 99;
+}
+.input-block {
+	width: 100%;
+	color: white;
+	display: block;
+	background-color: #232323;
+	border-style: none;
+	outline: none;
+	resize: none;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
 
 .send-button {
-	margin-bottom: 2em;
-	display: block;
 	border: solid;
+	float: right;
 	border-color: #505050;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 8px 15px;
 	border-radius: 5px;
 	background-color: #1d1d1d;
+	height: 3em;
+	margin: 5% 0em 1em 5%;
 	color: white;
-
 }
-
 .send-button:hover {
 	border-color: white;
 	background-color: #303030;
@@ -49,74 +101,26 @@
 	background-color: white;
 }
 
-
-.title,
-.response-title {
+.chat-background {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.input {
-	background-color: #232323;
-	width: 80%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 3em;
-	padding: 15px;
-	border-radius: 10px;
-	border-style: solid;
-	border-color: #505050
-}
-
-@media (min-width: 750px) {
-	.input {
-		width: 45em;
-	}
-}
-
-.input-block {
-	margin-top: 3em;
-	margin-bottom: 0em;
-	color: white;
-	display: block;
-	margin-left: auto;
-	font-family: "Georgia", serif;
-	margin-right: auto;
 	background-color: #1b1b1b;
-	color: white;
-	padding: 5px 10px;
-	border-radius: 10px;
-}
-
-
-.output {
-	border-radius: 10px;
+	position: fixed;
+	bottom: 0;
+	padding: 1em 1em 1em 1em;
+	height: 12%;
+	width: 100vw;
+	border-color: #1b1b1b;
 	border-style: solid;
-	border-color: #505050;
-	display: block;
-	width: 80%;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 15px;
-	word-wrap: break-word;
-	background-color: #232323;
+	z-index: 97;
 }
 
-
-@media (min-width: 750px) {
-	.output {
-		width: 45em;
-	}
+h2 {
+	text-decoration: underline;
 }
-
 body {
+	display: flex;
 	background-color: #1b1b1b;
+	margin: 0px 0px 0px 0px;	
 	color: white;
-	font-family: "Helvetica", serif;
-}
-
-hr {
-	border-color: #000000;
+	font-family: "Georgia", serif;
 }

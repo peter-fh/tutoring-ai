@@ -6,7 +6,7 @@ example_response_file = prompt_dir + os.sep + "example_response.txt"
 prompt_text_file = prompt_dir + os.sep + "prompt.txt"
 course_json_file = prompt_dir + os.sep + "courses.json"
 
-def generatePrompt(course_code: str, example_response=False):
+def generatePrompt(course_code: str, brevity: str, example_response=False):
     # Ensure that the student selected the course they are taking
     if course_code == "None":
         return "Please select the course you are asking about."
@@ -28,7 +28,8 @@ def generatePrompt(course_code: str, example_response=False):
     return_prompt = (prompt
         .replace("{$name}", course["name"])
         .replace("{$concepts}", course["content"])
-        .replace("{$prerequisite-concepts}", course["prerequisite"]))
+        .replace("{$prerequisite-concepts}", course["prerequisite"])
+        .replace("{$brevity}", brevity))
 
     # Return the final constructed prompt
 
@@ -37,4 +38,4 @@ def generatePrompt(course_code: str, example_response=False):
 
 # [Debug] Get example prompt and display it on the terminal
 if __name__ == "__main__":
-    print(generatePrompt("MATH 209"))
+    print(generatePrompt("MATH 209", "brief"))
