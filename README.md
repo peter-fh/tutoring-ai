@@ -37,6 +37,8 @@ To edit the prompt, open prompt.txt in any text editor. The content of the file 
 **{$name}**: The current course name (e.g. Differential Calculus)  
 **{$concepts}**: The content of the course the student is asking about (e.g. Limits, Derivatives, etc.)  
 **{$prerequisite-concepts}**: The content of the prerequisite courses (e.g. Algebra)  
+**{$brevity}**: How brief or detailed the student has requested the response to be 
+
 
 ## Editing the course info
 The contents of courses.json are used to replace the placeholder variables in prompt.txt. To edit these variables, open courses.json and edit the values for each course. The course codes, as well as "name", "content" and "prerequisite" are required for the functionality of the system and are not included in the prompt, however anything else will be sent to GPT-4o and is worth experimenting with to attempt to improve the quality of responses.
