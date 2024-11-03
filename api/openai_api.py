@@ -33,7 +33,6 @@ def ask(conversation, prompt, dummy_response=False):
     print()
     print(*wrap(conversation[-1]["content"][0]["text"]), sep="\n")
     print("\n\n")
-    print(conversation)
     conversation.insert(0, {
         "role": "system",
         "content": [{
@@ -42,7 +41,6 @@ def ask(conversation, prompt, dummy_response=False):
         }
                     ]
     })
-    print(conversation)
 
     # Send the request to OpenAI API
     completion = client.chat.completions.create(

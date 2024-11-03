@@ -72,7 +72,7 @@ async function sendQuestion() {
 			response_block.innerHTML = data;
 			MathJax.typeset([response_block]);
 			response_block.innerHTML = marked.parse(response_block.innerHTML);
-			conversation.push(constructMessage('assistant', text))
+			conversation.push(constructMessage('assistant', data))
 			console.log("Conversation:")
 			console.log(conversation)
 

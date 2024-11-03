@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_from_directory
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt
 import json
@@ -8,6 +8,9 @@ import json
 
 # Initialize the server library
 app = Flask(__name__)
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('./images', 'icon.png', mimetype='image/png')
 
 # Handles showing the website's main page
 @app.route('/')
