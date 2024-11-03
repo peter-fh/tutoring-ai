@@ -1,3 +1,11 @@
+var modal = document.getElementById("CourseSelectModal");
+modal.style.display = "block";
+
+function closeModal(){
+	document.getElementById("course-select").value = document.getElementById("modal-course-select").value
+	modal.style.display = "none";
+}
+
 function constructMessage(role, message_string) {
 	const content = [{ type: 'text', text: message_string }];
 	const message = { role: role, content: content };
