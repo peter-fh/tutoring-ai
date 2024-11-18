@@ -20,13 +20,22 @@
 				<!--option value="MATH 204">MATH 204</option-->
 				<!--option value="MATH 205">MATH 205</option-->
 			</select>
-			<button onclick="closeModal()" id="modalCloseButton" class="modal-close-button">Done</button>
+			<button onclick="closeCourseModal()" id="modalCloseButton" class="modal-close-button">Done</button>
+
+		</div>
+	</div>
+	<div id="TypeSelectModal" class="type-modal">
+		<div class="type-modal-content">
+			<p>What type of question do you have?</p>
+			<button onclick="selectConcept()" id="modalCloseButton" class="modal-close-button">I have a question about a concept</button>
+			<button onclick="selectProblem()" id="modalCloseButton" class="modal-close-button">I have a question about a problem</button>
 
 		</div>
 	</div>
 	<div class="sidebar">
 		<div class="options">
 			<h2>Controls</h2>
+			<button onclick="newConversation()" class="new-conversation-button">New Conversation</button>
 			<div class="option">
 				<h3>Course</h3>
 				<select name="course-select" id="course-select" class="select-box">
@@ -37,19 +46,20 @@
 				</select>
 			</div>
 			<div class="option">
+				<h3>Question Type</h3>
+				<select name="type-select" id="type-select" class="select-box">
+					<option value="Concept">Concepts</option>
+					<option value="Problem" selected>Problems</option>
+				</select>
+			</div>
+			<div class="option">
 				<h3>Level of Detail</h3>
 				<select name="brevity-select" id="brevity-select" class="select-box">
 					<option value="Brief">Brief</option>
-					<option value="Normal" selected>Normal</option>
-					<option value="Detailed">Detailed</option>
+					<option value="Normal">Normal</option>
+					<option value="Detailed" selected>Detailed</option>
 				</select>
 			</div>
-		</div>
-			<h2>Disclaimer</h2>
-		<div class="disclaimer">
-			<p>
-			This AI assistant is designed to give the best conceptual explanations possible. Asking for help with general concepts (i.e. "what is a derivative?") is the best way to utilize this assistant. Asking any Large Language Model to output a numerical answer to complex problems, like those that are present in your assignment and exams, will not result in consistant answers. This technology has not reached a level where they can consistently find the correct answers to problems, so do not expect any numbers ouput by the assistant to be correct.
-			</p>
 		</div>
 		<a class="attribution" href="https://www.flaticon.com/free-icons/robot" title="robot icons">Robot icons created by Fajriah Robiatul Adawiah - Flaticon</a>
 	</div>
@@ -62,7 +72,7 @@
 
 			<p>
 				Hello! I'm an AI chatbot powered by Chat-GPT. I use context specific to Concordia to provide
-				better explanations. AI makes mistakes, so check important information.
+				better explanations. AI makes mistakes, so please double check any answers you are given.
 			</p>
 		</span>
 

@@ -2,7 +2,11 @@
     "MATH 203": {
 	"name": "Differential Calculus",
 	"content": "limits, derivatives, implicit differentiation, linearization, related rates, optimization",
-	"prerequisite": "linear slope, functions, algebra, geometry, trigonometry"
+	"prerequisite": "linear slope, functions, algebra, geometry, trigonometry",
+	"notes": [
+	    "Vertical and Horizontal asymptotes are included, slant asymptotes are excluded",
+	    "For derivative rules like chain rule, use f,g,f' and g' instead of u,v,u' and v'."
+	]
     },
     "MATH 204": {
 	"name": "Vectors and Matrices",

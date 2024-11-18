@@ -1,9 +1,31 @@
-var modal = document.getElementById("CourseSelectModal");
-modal.style.display = "block";
+// Only disable modals if testing changes to the User Interface
+enable_modals = true
+var course_modal = document.getElementById("CourseSelectModal");
+if (enable_modals){
+	course_modal.style.display = "block";
+}
 
-function closeModal(){
+var type_modal = document.getElementById("TypeSelectModal");
+type_modal.style.display = "none";
+
+function closeCourseModal(){
 	document.getElementById("course-select").value = document.getElementById("modal-course-select").value
-	modal.style.display = "none";
+	course_modal.style.display = "none";
+	type_modal.style.display = "block"
+}
+
+function selectProblem() {
+	document.getElementById("type-select").value = "Problem"
+	type_modal.style.display = "none"
+}
+
+function selectConcept() {
+	document.getElementById("type-select").value = "Concept"
+	type_modal.style.display = "none"
+}
+
+function newConversation() {
+	type_modal.style.display = "block"
 }
 
 function constructMessage(role, message_string) {
@@ -22,6 +44,7 @@ async function sendQuestion() {
 	const text = document.getElementById("userInput").value;
 	const course = document.getElementById("course-select").value;
 	const brevity = document.getElementById("brevity-select").value;
+	const type = document.getElementById("type-select").value;
 	if (text == ""){
 		return;
 	}
@@ -61,7 +84,8 @@ async function sendQuestion() {
 		headers: {
 			'Content-Type': 'application/json',
 			'Course': course,
-			'Brevity': brevity
+			'Brevity': brevity,
+			'Type': type
 		},
 		body: JSON.stringify(conversation)
 	})

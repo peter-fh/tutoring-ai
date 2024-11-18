@@ -1,41 +1,63 @@
 import json
 import os
+from enum import Enum
 
-prompt_dir = "prompt"
-example_response_file = prompt_dir + os.sep + "example_response.txt"
-prompt_text_file = prompt_dir + os.sep + "prompt.txt"
+class PromptType(Enum):
+    PROBLEM = 1
+    CONCEPT = 2
+
+
+prompt_dir = "prompt" + os.sep + "prompts"
 course_json_file = prompt_dir + os.sep + "courses.json"
+course_prompt_file = prompt_dir + os.sep + "course_prompt.txt"
+concept_prompt_file = prompt_dir + os.sep + "concept_prompt.txt"
+problem_prompt_file = prompt_dir + os.sep + "concept_prompt.txt"
 
-def generatePrompt(course_code: str, brevity: str, example_response=False):
-    # Ensure that the student selected the course they are taking
-    if course_code == "None":
-        return "Please select the course you are asking about."
-
-    # [Debug] Example response used for testing the website
-    if example_response:
-        with open(example_response_file) as f:
-            return f.read()
-
+def generateCoursePrompt(course_code: str):
     # Open the coures json file and extract the course specific information
     course_file = open(course_json_file)
     courses = json.load(course_file)
     course = courses[course_code]
 
     # Open and read the prompt txt file
-    prompt = open(prompt_text_file).read()
+    prompt = open(course_prompt_file).read()
 
     # Replace the placeholder variables with the course information
     return_prompt = (prompt
         .replace("{$name}", course["name"])
         .replace("{$concepts}", course["content"])
         .replace("{$prerequisite-concepts}", course["prerequisite"])
-        .replace("{$brevity}", brevity))
+        .replace("{$notes}", "\n- ".join(course["notes"])))
 
     # Return the final constructed prompt
 
     return return_prompt
 
+def generateConceptPrompt(brevity: str):
+    prompt = open(concept_prompt_file).read()
+
+    return_prompt = (prompt
+        .replace("{$brevity}", brevity))
+
+    return return_prompt
+
+def generateProblemPrompt(brevity: str):
+    prompt = open(problem_prompt_file).read()
+
+    return_prompt = (prompt
+        .replace("{$brevity}", brevity))
+
+    return return_prompt
+
+
+def generatePrompt(prompt_type: PromptType, course_code: str, brevity: str):
+    if prompt_type == PromptType.PROBLEM:
+        return generateCoursePrompt(course_code), generateProblemPrompt(brevity)
+    elif prompt_type == PromptType.CONCEPT:
+        return generateCoursePrompt(course_code), generateConceptPrompt(brevity)
+
+
 
 # [Debug] Get example prompt and display it on the terminal
 if __name__ == "__main__":
-    print(generatePrompt("MATH 209", "brief"))
+    print(generateCoursePrompt("MATH 203"))

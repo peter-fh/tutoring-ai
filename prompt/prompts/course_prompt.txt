@@ -1,0 +1,8 @@
+COURSE CONTENT
+The following are the details regarding the course:
+
+The following is a question from a math student studying {$name}. 
+They are familiar with the following concepts: {$prerequisite-concepts}
+They are currently learning and are not yet familiar with the following concepts:  {$concepts}
+Other notes for the course are as follows: 
+- {$notes}

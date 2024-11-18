@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, send_from_directory
 from api.openai_api import ask
-from prompt.prompt_manager import generatePrompt
+from prompt.prompt_manager import generatePrompt, PromptType
 import json
 
 # TODO: Add a dropdown that controls how detailed or consise the response is
@@ -35,14 +35,18 @@ def question():
         # Get brevity level
         brevity = request.headers["Brevity"]
 
+        # Get question type
+        question = request.headers["Type"]
+        prompt_type = PromptType[question.upper()]
+
         # Get the question that the user asked from the HTTP request
         message = request.get_json()
 
         # Generate the prompt based on the course
-        prompt = generatePrompt(course, brevity)
+        course_info, prompt = generatePrompt(prompt_type, course, brevity)
 
         # Ask the question with the context of the selected course
-        gpt_response = ask(message, prompt, dummy_response=False) 
+        gpt_response = ask(message, course_info, prompt, dummy_response=False) 
 
         return gpt_response
 
@@ -58,5 +62,5 @@ if __name__ == '__main__':
     print(f'{"=    Enter the following url into the browser:":<69}=')
     print(f'{"=    http://127.0.0.1:" + str(port):<69}=')
     print("=" * 70)
-    app.run(port=8070)
+    app.run(port=8070, debug=True)
 

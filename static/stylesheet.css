@@ -1,3 +1,22 @@
+
+.type-modal {
+	display: none;
+	position: fixed;
+	z-index: 99;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #1d1d1d;
+}
+
+.type-modal-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
 .course-modal {
 	display: none;
 	position: fixed;
@@ -46,6 +65,25 @@
 	padding: 1em 2em 2em 2em;
 	z-index: 10;
 	overflow-y: auto;
+}
+
+.new-conversation-button{
+	border: solid;
+	border-color: #505050;
+	border-radius: 5px;
+	background-color: #1d1d1d;
+	padding: 0em 1em 0em 1em;
+	margin: 1em 0em 0em 0em;
+	height: 3em;
+	color: white;
+}
+
+.new-conversation-button:hover {
+	border-color: white;
+	background-color: #303030;
+}
+.new-conversation-button:active {
+	background-color: white;
 }
 
 
