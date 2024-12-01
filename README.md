@@ -1,34 +1,10 @@
-# tutoring-ai
+# MAT Tutoring AI
 
-## API key
+This project is a prototype of a tutoring AI that uses ChatGPT. It sends specialized prompts that contain the relevant information about specific courses that a student is taking and asking questions about. It also contains specific instructions in order to respond to each question and type of question in the most helpful ways.
 
-Each prompt requested from OpenAI costs money. You can expect each testing session, depending on how many questions are asked and how long the responses from GPT are, to cost between 5-25 cents. A minimum pre-payment of $5 is required to start using the API. This unfortunately means that unless funded by the MAT Tutoring center, testing this project requires a $5 payment for each new user.
+## Deployment
 
-API keys can be obtained through the [OpenAI API site](platform.openai.com). This project requires your OPENAI_API_KEY environment variable to be set, as explained on the first two paragraphs of the [OpenAI Quickstart Guide](https://platform.openai.com/docs/quickstart).
-
-
-
-## Installation
-
-### Prerequisites
-
-- [Python](https://www.python.org/downloads/)
-
-### Installing the project
-
-Download the release zip file from the releases tab on the Github page.
-
-Unzip the file and drag the server folder somewhere on your system. 
-
-Rename example.env to .env and replace the placeholder with your API key.
-
-
-## Using the site
-Double click the run.bat (windows) or run.command (macos) file. The server should now be open and the site can be reached.
-
-Make sure this terminal window stays open or running in the background while using the project. Close the terminal or press Control-C when done. After running this command, enter the following link into your browser:
-
-http://localhost:8070
+This project is deployed via Vercel to [mat-ai-tutor.vercel.app](https://mat-ai-tutor.vercel.app/).
 
 ## Editing the prompt
 ### Prompt.txt

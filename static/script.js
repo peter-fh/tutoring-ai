@@ -31,7 +31,6 @@ function selectConcept() {
 
 function newConversation() {
 	location.reload();
-	type_modal.style.display = "block"
 }
 
 
@@ -74,13 +73,17 @@ async function sendQuestion() {
 
 	response_block.classList.add("output")
 
+	// Handle case with no course selected
 	if (course === "None") {
+		// Display error message
 		question_block.classList.add("question");
 		question_block.innerHTML = "<p>" + text + "</p>";
 		question_block.innerHTML = marked.parse(question_block.innerHTML);
 		output_block.appendChild(question_block);
 		response_block.innerHTML = "<p>Sorry, I can't help you without knowing which course you are taking. Please select the course you are asking about in the dropdown on the left and try again.</p>"
 		output_block.appendChild(response_block);
+
+		// Exit so that no ChatGPT query is sent
 		return;
 	}
 	question_block.classList.add("question");
