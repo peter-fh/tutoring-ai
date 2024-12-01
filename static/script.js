@@ -1,3 +1,6 @@
+let conversation = [];
+let loading_lock = false;
+
 // Only disable modals if testing changes to the User Interface
 enable_modals = true
 var course_modal = document.getElementById("CourseSelectModal");
@@ -17,16 +20,20 @@ function closeCourseModal(){
 function selectProblem() {
 	document.getElementById("type-select").value = "Problem"
 	type_modal.style.display = "none"
+	document.getElementById("userInput").focus();
 }
 
 function selectConcept() {
 	document.getElementById("type-select").value = "Concept"
 	type_modal.style.display = "none"
+	document.getElementById("userInput").focus();
 }
 
 function newConversation() {
+	location.reload();
 	type_modal.style.display = "block"
 }
+
 
 function constructMessage(role, message_string) {
 	const content = [{ type: 'text', text: message_string }];
@@ -34,8 +41,19 @@ function constructMessage(role, message_string) {
 	return message;
 }
 
-let conversation = [];
 
+document.getElementById("userInput").value = "";
+
+document.getElementById("userInput").addEventListener("keydown", function(event) {
+	if (event.key === "Enter" && !event.shiftKey) {
+		event.preventDefault();
+		if (loading_lock) {
+			return;
+		}
+		sendQuestion();
+		document.getElementById("userInput").value = "";
+	}
+})
 
 // Function to make request to server for specific question asked
 async function sendQuestion() {
@@ -77,6 +95,7 @@ async function sendQuestion() {
 
 	// Display temporary loading message
 	response_block.innerHTML = "<p>Loading. This might take a few seconds.</p>"
+	loading_lock = true;
 
 	// Make the request
 	const request = new Request('/question', {
@@ -107,11 +126,11 @@ async function sendQuestion() {
 			conversation.push(constructMessage('assistant', data))
 			console.log("Conversation:")
 			console.log(conversation)
-
-
+			loading_lock = false;
 		})
 		.catch((error) => {
 			console.error('Error:', error);
+			loading_lock = false;
 	});
 	response_block.classList.add("message");
 	output_block.appendChild(response_block);

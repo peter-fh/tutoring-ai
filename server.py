@@ -26,8 +26,8 @@ def question():
 
         # If the question the student asks is more than a certain number of characters, reject the question
         # Each character/word of the question contributes to the cost of the API call
-        if len(request.data) > 2500:
-            return "Message too long!"
+        # if len(request.data) > 2500:
+            # return "Message too long!"
 
         # Get course type
         course = request.headers["Course"]

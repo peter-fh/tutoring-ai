@@ -11,7 +11,7 @@ prompt_dir = "prompt" + os.sep + "prompts"
 course_json_file = prompt_dir + os.sep + "courses.json"
 course_prompt_file = prompt_dir + os.sep + "course_prompt.txt"
 concept_prompt_file = prompt_dir + os.sep + "concept_prompt.txt"
-problem_prompt_file = prompt_dir + os.sep + "concept_prompt.txt"
+problem_prompt_file = prompt_dir + os.sep + "problem_prompt.txt"
 
 def generateCoursePrompt(course_code: str):
     # Open the coures json file and extract the course specific information

@@ -5,7 +5,9 @@
 	"prerequisite": "linear slope, functions, algebra, geometry, trigonometry",
 	"notes": [
 	    "Vertical and Horizontal asymptotes are included, slant asymptotes are excluded",
-	    "For derivative rules like chain rule, use f,g,f' and g' instead of u,v,u' and v'."
+	    "For derivative rules like chain rule, use f,g,f' and g' instead of u,v,u' and v'.",
+	    "Don't do function analysis or mention injective/surjective when finding domain and range. Use the domain of the inverse to find range.",
+	    "Check for both left and right horizontal asymptotes"
 	]
     },
     "MATH 204": {
