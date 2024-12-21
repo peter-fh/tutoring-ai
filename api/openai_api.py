@@ -1,10 +1,9 @@
-import time
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
 import textwrap
 
-prompt_dir = "prompt" + os.sep + "prompts"
+prompt_dir = "prompt"
 example_response_file = prompt_dir + os.sep + "example_response.txt"
 
 load_dotenv(override=True)
@@ -35,10 +34,7 @@ def ask(conversation, course_info, prompt, dummy_response=False):
 
     if dummy_response:
         with open(example_response_file) as f:
-            for line in f:
-                time.sleep(0.1)
-                yield line
-        return
+            return f.read()
 
     # Display the query that is about to be sent in the terinabecause something is wrong."l
     '''
@@ -68,17 +64,14 @@ def ask(conversation, course_info, prompt, dummy_response=False):
     displayConversation(conversation)
 
     # Send the request to OpenAI API
-    stream = client.chat.completions.create(
+    completion = client.chat.completions.create(
 
         #   # Model of GPT
         model="gpt-4o",
-        messages=conversation,
-        stream=True,
+        messages=conversation
     )
 
     # # Extract the content of the returned message
-    for chunk in stream:
-        content = chunk.choices[0].delta.content 
-        if content is not None:
-            yield content
+    return str(completion.choices[0].message.content)
+    #return "hi"
 

@@ -1,8 +1,9 @@
-from flask import Flask, request, render_template, send_from_directory, stream_with_context, Response
+from flask import Flask, request, render_template, send_from_directory
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
 import json
 
+# TODO: Add a dropdown that controls how detailed or consise the response is
 # TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
 
 # Initialize the server library
@@ -45,9 +46,9 @@ def question():
         course_info, prompt = generatePrompt(prompt_type, course, brevity)
 
         # Ask the question with the context of the selected course
-        stream = ask(message, course_info, prompt, dummy_response=False) 
+        gpt_response = ask(message, course_info, prompt, dummy_response=False) 
 
-        return Response(stream_with_context(stream), content_type="text/plain")
+        return gpt_response
 
     # Reject non-POST requests (flask should handle this regardless)
     return "Invalid request type", 400
