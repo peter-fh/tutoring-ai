@@ -126,6 +126,7 @@
 	border-color: #505050;
 	border-style: solid;
 	margin-bottom: 1em;
+	overflow-y: auto;
 }
 
 .question {
