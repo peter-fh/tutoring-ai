@@ -97,6 +97,7 @@ async function sendQuestion() {
 	// Display error if course wasn't selected
 
 	// Display temporary loading message
+	container = document.getElementById("chat")
 	response_block.innerHTML = "<p>Loading. This might take a few seconds.</p>"
 	loading_lock = true;
 
@@ -116,26 +117,32 @@ async function sendQuestion() {
 	//console.log(text);
 
 	// Asynchronously fetch the request
-	fetch(request)
-		// Convert response to text
-		.then((response) => response.text())
+	const start_time = performance.now()
+	const response = await fetch(request)
+	const reader = response.body.getReader()
+	const decoder = new TextDecoder('utf-8')
+	answer = ""
 
-		// Format and display the response
-		.then((data) => {
-			//console.log('Received prompt from gpt api:\n', data);
-			response_block.innerHTML = data;
-			MathJax.typeset([response_block]);
-			response_block.innerHTML = marked.parse(response_block.innerHTML);
-			conversation.push(constructMessage('assistant', data))
-			console.log("Conversation:")
-			console.log(conversation)
-			loading_lock = false;
-		})
-		.catch((error) => {
-			console.error('Error:', error);
-			loading_lock = false;
-	});
-	response_block.classList.add("message");
-	output_block.appendChild(response_block);
+	while (true) {
+		const {value, done} = await reader.read()
+		if (done) {
+			break
+		}
+		
+		const chunk = decoder.decode(value, { stream: true})
+		answer += chunk
+		response_block.innerHTML = answer;
+		MathJax.typeset([response_block]);
+		response_block.innerHTML = marked.parse(response_block.innerHTML);
+		response_block.classList.add("message");
+		output_block.appendChild(response_block);
+	}
+	conversation.push(constructMessage('assistant', answer))
+	loading_lock = false;
+
+	const end_time = performance.now()
+	console.log(`Response took ${(end_time - start_time) / 1000}`)
+
+
 
 }
