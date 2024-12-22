@@ -73,6 +73,7 @@ def ask(conversation, course_info, prompt, dummy_response=False):
         #   # Model of GPT
         model="gpt-4o",
         messages=conversation,
+        temperature=0,
         stream=True,
     )
 
