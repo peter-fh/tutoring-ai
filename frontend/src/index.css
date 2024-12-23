@@ -4,6 +4,7 @@
 	color: white;
 	border-radius: 5px;
 	padding: 5px 5px;
+	text-align-last: center;
 
 }
 
@@ -12,7 +13,7 @@ h2 {
 }
 body {
 	display: flex;
-	background-color: #1b1b1b;
+	background-color: #1d1d1d;
 	margin: 0px 0px 0px 0px;	
 	color: white;
 	font-family: "Georgia", serif;

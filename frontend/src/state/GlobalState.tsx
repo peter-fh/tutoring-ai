@@ -1,9 +1,12 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { QuestionType } from "./QuestionType";
+import { Course } from "./Course";
 
 type GlobalState = {
-  state: QuestionType;
-  setState: (value: QuestionType) => void;
+  question: QuestionType;
+  setQuestion: (value: QuestionType) => void;
+  course: Course;
+  setCourse: (value: Course) => void;
 };
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -17,10 +20,16 @@ export const useGlobalState = () => {
 };
 
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
-  const [state, setState] = useState(QuestionType.UNSPECIFIED);
+  const [question, setQuestion] = useState(QuestionType.UNSPECIFIED);
+  const [course, setCourse] = useState(Course.UNSPECIFIED);
 
   return (
-    <GlobalStateContext.Provider value={{ state, setState }}>
+    <GlobalStateContext.Provider value={{ 
+      question, 
+      setQuestion,
+      course,
+      setCourse
+    }}>
       {children}
     </GlobalStateContext.Provider>
   );
