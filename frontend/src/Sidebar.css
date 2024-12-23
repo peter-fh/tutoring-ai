@@ -1,0 +1,39 @@
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	position: fixed;
+	width: 20vw;
+	height: 100vh;
+	background-color: #232323;
+	padding: 1em 2em 2em 2em;
+	z-index: 10;
+	overflow-y: auto;
+}
+
+.attribution {
+	display: fixed;
+	bottom: 0;
+	margin-top: 2em;
+	padding: 0em 1em 0em 1em;
+	color: inherit;
+}
+
+.new-conversation-button{
+	border: solid;
+	border-color: #505050;
+	border-radius: 5px;
+	background-color: #1d1d1d;
+	padding: 0em 1em 0em 1em;
+	margin: 1em 0em 0em 0em;
+	height: 3em;
+	color: white;
+}
+
+.new-conversation-button:hover {
+	border-color: white;
+	background-color: #303030;
+}
+.new-conversation-button:active {
+	background-color: white;
+}

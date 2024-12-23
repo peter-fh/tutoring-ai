@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { useGlobalState } from '../state/GlobalState'
-import { QuestionType } from '../state/QuestionType'
-import { Course } from '../state/Course'
+import { useGlobalState } from './GlobalState'
+import { QuestionType, Course } from './Options'
 import './Modal.css'
 
 function Modal() {
