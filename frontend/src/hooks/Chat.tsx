@@ -14,7 +14,7 @@ function Chat() {
     conversation, 
     addMessage,  
   } = useGlobalState()
-  const messages: string[] = []
+  const [messages, setMessages] = useState<string[]>([])
 
 
   async function ask(conversation: Message[]) {
@@ -28,6 +28,7 @@ function Chat() {
       },
       body: JSON.stringify(conversation)
     })
+    console.log("Starting request")
     const start_time = performance.now()
     const response = await fetch(request)
     const reader = response.body!.getReader()
@@ -52,17 +53,20 @@ function Chat() {
 
   const handleSendMessage = async () => {
     const fullConversation = [...conversation, newMessage(message, "user")]
-    fullConversation.push(newMessage(message, "user"))
-    messages.push(message)
+    setMessages([...messages!, message])
     const aiMessagePromise = ask(fullConversation)
     const aiMessage = await aiMessagePromise
-
-    messages.push(aiMessage)
+    setMessages([...messages!, message, aiMessage])
 
     addMessage(newMessage(message, "user"))
 
     addMessage(newMessage(aiMessage, "assitant"))
+    console.log("Messages:")
     console.log(messages)
+    console.log("Message:")
+    console.log(message)
+    console.log("Ai message:")
+    console.log(aiMessage)
   }
 
   return (
@@ -75,9 +79,9 @@ function Chat() {
             better explanations. AI makes mistakes, so please double check any answers you are given.
           </p>
         </span>
-        {messages.map((message, index) => (
-          <span className="output">
-            <p key={index}>{message}</p>
+        {messages && messages.map((message, index) => (
+          <span key={index}className="output">
+            <p>{message}</p>
           </span>
         ))}
         <div className="input">
