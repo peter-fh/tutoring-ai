@@ -1,8 +1,8 @@
 // import { useState } from 'react'
 import './App.css'
-import Modal from './modal/Modal.tsx'
-import Modal from './Modal'
-import Sidebar from './Sidebar'
+import Modal from './hooks/Modal'
+import Sidebar from './hooks/Sidebar'
+import Chat from './hooks/Chat'
 
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
     <>
       <Modal/>
       <Sidebar/>
+      <Chat/>
     </>
   )
 }

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { QuestionType, Course, DetailLevel } from "./Options";
+import { QuestionType, Course, DetailLevel } from "./types/options";
+import { Message } from "./types/message";
 
 type GlobalState = {
   question: QuestionType;
@@ -8,6 +9,8 @@ type GlobalState = {
   setCourse: (value: Course) => void;
   detailLevel: DetailLevel;
   setDetailLevel: (value: DetailLevel) => void;
+  messages: Message[];
+  addMessage: (value: Message) => void;
 };
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -24,6 +27,11 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [question, setQuestion] = useState(QuestionType.CONCEPT);
   const [course, setCourse] = useState(Course.MATH203);
   const [detailLevel, setDetailLevel] = useState(DetailLevel.DETAILED);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const addMessage = (message: Message) => {
+    setMessages((prevMessages) => [...prevMessages, message])
+  }
 
   return (
     <GlobalStateContext.Provider value={{ 
@@ -33,6 +41,8 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
       setCourse,
       detailLevel,
       setDetailLevel,
+      messages,
+      addMessage,
     }}>
       {children}
     </GlobalStateContext.Provider>

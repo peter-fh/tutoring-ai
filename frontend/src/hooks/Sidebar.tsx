@@ -1,8 +1,8 @@
-import { Course, DetailLevel, QuestionType } from './Options'
-import { useGlobalState } from './GlobalState'
+import { Course, DetailLevel, QuestionType } from '../types/options'
+import { useGlobalState } from '../GlobalState'
 import './Sidebar.css'
 
-function NewConversation() {
+function NewConversationButton() {
   return (
     <button onClick={ () => {
       window.location.reload()
@@ -79,7 +79,7 @@ function Sidebar() {
       <div className="sidebar">
         <div className="options">
           <h2>Controls</h2>
-          <NewConversation/>
+          <NewConversationButton/>
           <CourseSelect/>
           <QuestionTypeSelect/>
           <BrevitySelect/>

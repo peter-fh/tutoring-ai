@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useGlobalState } from './GlobalState'
-import { QuestionType, Course } from './Options'
+import { useGlobalState } from '../GlobalState'
+import { QuestionType, Course } from '../types/options'
 import './Modal.css'
 
 function Modal() {
@@ -9,9 +9,10 @@ function Modal() {
   const [hideSecond, setHideSecond] = useState(false);
   // TODO: Add "unspecified" option to course and don't allow closing the course modal
   // if unspecified is selected
+  // This shouldn't be done until either more courses are added or rapid testing of the UI is not required anymore
   const { setQuestion, setCourse } = useGlobalState()
 
-  /* The course-select selector can be changed to its own function/component if the sidebar version 
+  /* The course-select select box can be changed to its own function/component if the sidebar version
    * should look identical to this modal version */
   const courseSelectModal = () => {
     const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

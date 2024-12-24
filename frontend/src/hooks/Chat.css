@@ -1,0 +1,91 @@
+.chat {
+	width: 80vw;
+	margin-left: 20vw;
+	padding-left: 3vw;
+	padding-right: 3vw;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-bottom: 20vh;
+}
+
+.output {
+	text-align: left;
+	background-color: #232323;
+	padding: 1em 1em 1em 1em;
+	width: 80%;
+	border-radius: 10px;
+	border-color: #505050;
+	border-style: solid;
+	margin-bottom: 1em;
+	overflow-y: auto;
+}
+
+.question {
+	text-align: left;
+	background-color: #303030;
+	padding: 1em 1em 1em 1em;
+	width: 80%;
+	border-radius: 10px;
+	border-color: #505050;
+	border-style: solid;
+	margin-bottom: 1em;
+}
+
+.input {
+	display: flex;
+	position: fixed;
+	bottom: 0px;
+	height: 12%;
+	width: 32%;
+	background-color: #232323;
+	padding: 1em 1em 1em 1em;
+	border-radius: 10px;
+	border-color: #505050;
+	border-style: solid;
+	z-index: 11;
+}
+.input-block {
+	width: 100%;
+	color: white;
+	display: block;
+	background-color: #232323;
+	border-style: none;
+	outline: none;
+	resize: none;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+
+.send-button {
+	border: solid;
+	float: right;
+	border-color: #505050;
+	border-radius: 5px;
+	background-color: #1d1d1d;
+	height: 3em;
+	margin: 5% 0em 1em 5%;
+	color: white;
+}
+.send-button:hover {
+	border-color: white;
+	background-color: #303030;
+}
+
+.send-button:active {
+	background-color: white;
+}
+
+.chat-background {
+	display: flex;
+	background-color: #1b1b1b;
+	position: fixed;
+	bottom: 0;
+	padding: 1em 1em 1em 1em;
+	height: 12%;
+	width: 100vw;
+	border-color: #1b1b1b;
+	border-style: solid;
+	z-index: 9;
+}

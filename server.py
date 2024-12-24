@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, render_template, send_from_directory, stream_with_context, Response
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
@@ -6,7 +7,7 @@ import json
 # TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
 
 # Initialize the server library
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend/dist")
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('./images', 'icon.png', mimetype='image/png')
@@ -14,8 +15,13 @@ def favicon():
 # Handles showing the website's main page
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return send_from_directory(app.static_folder, "index.html")
+    # return render_template("index.html")
 
+
+@app.route("/assets/<path:path>")
+def serve_assets(path):
+    return send_from_directory(app.static_folder + os.sep + "assets", path)
 
 # Handles clicking the "Ask" button
 @app.route('/question/', methods=['POST'])
