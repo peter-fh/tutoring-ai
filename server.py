@@ -1,10 +1,9 @@
 import os
 from flask import Flask, request, render_template, send_from_directory, stream_with_context, Response
+from flask import Flask, request, send_from_directory, stream_with_context, Response
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
 import json
-
-# TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
 
 # Initialize the server library
 app = Flask(__name__, static_folder="frontend/dist")
@@ -31,6 +30,9 @@ def question():
 
         # If the question the student asks is more than a certain number of characters, reject the question
         # Each character/word of the question contributes to the cost of the API call
+        # Disabled since a conversation after one message is already longer than this value
+        # TODO: add more protection/incentive against long conversation
+
         # if len(request.data) > 2500:
             # return "Message too long!"
 

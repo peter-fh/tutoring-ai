@@ -4,6 +4,17 @@ type MessageContent = {
 }
 
 export type Message = {
-  role: 'user' | 'assistant' | 'system'
+  role: string
   content: MessageContent[]
+}
+
+export function newMessage(content: string, role: string) {
+  const messageContent: MessageContent = {
+    type: "text",
+    text: content
+  }
+  return {
+    role: role,
+    content: [messageContent]
+  }
 }

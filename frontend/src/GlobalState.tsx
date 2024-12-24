@@ -9,7 +9,7 @@ type GlobalState = {
   setCourse: (value: Course) => void;
   detailLevel: DetailLevel;
   setDetailLevel: (value: DetailLevel) => void;
-  messages: Message[];
+  conversation: Message[];
   addMessage: (value: Message) => void;
 };
 
@@ -27,7 +27,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [question, setQuestion] = useState(QuestionType.CONCEPT);
   const [course, setCourse] = useState(Course.MATH203);
   const [detailLevel, setDetailLevel] = useState(DetailLevel.DETAILED);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [conversation, setMessages] = useState<Message[]>([]);
 
   const addMessage = (message: Message) => {
     setMessages((prevMessages) => [...prevMessages, message])
@@ -41,7 +41,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
       setCourse,
       detailLevel,
       setDetailLevel,
-      messages,
+      conversation,
       addMessage,
     }}>
       {children}
