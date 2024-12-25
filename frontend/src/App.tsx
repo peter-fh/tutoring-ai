@@ -1,17 +1,14 @@
 import Modal from './hooks/Modal'
 import Sidebar from './hooks/Sidebar'
 import Chat from './hooks/Chat'
-import { MathJaxContext } from 'better-react-mathjax'
 
 function App() {
 
   return (
     <>
-      <MathJaxContext>
-        <Modal/>
-        <Sidebar/>
-        <Chat/>
-      </MathJaxContext>
+      <Modal/>
+      <Sidebar/>
+      <Chat/>
     </>
   )
 }
