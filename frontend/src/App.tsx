@@ -1,5 +1,3 @@
-// import { useState } from 'react'
-import './App.css'
 import Modal from './hooks/Modal'
 import Sidebar from './hooks/Sidebar'
 import Chat from './hooks/Chat'

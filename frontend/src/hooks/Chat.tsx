@@ -16,6 +16,7 @@ function Chat() {
     addMessage,  
   } = useGlobalState()
   const [messages, setMessages] = useState<string[]>([])
+  const [aiMessage, setAiMessage] = useState('')
 
 
   async function ask(conversation: Message[]) {
@@ -44,7 +45,9 @@ function Chat() {
 
       const chunk = decoder.decode(value, { stream: true})
       answer += chunk
+      setAiMessage(answer)
     }
+    setAiMessage('')
 
     const end_time = performance.now()
     console.log(`Response took ${(end_time - start_time) / 1000}`)
@@ -60,14 +63,7 @@ function Chat() {
     setMessages([...messages!, message, aiMessage])
 
     addMessage(newMessage(message, "user"))
-
     addMessage(newMessage(aiMessage, "assitant"))
-    console.log("Messages:")
-    console.log(messages)
-    console.log("Message:")
-    console.log(message)
-    console.log("Ai message:")
-    console.log(aiMessage)
   }
 
   return (
@@ -85,6 +81,11 @@ function Chat() {
             <MathTeX content={message}/>
           </span>
         ))}
+        {aiMessage != '' && (
+          <span key={-1}className="output">
+            <MathTeX content={aiMessage}/>
+          </span>
+        )}
         <div className="input">
           <textarea
             onChange={(event) => {

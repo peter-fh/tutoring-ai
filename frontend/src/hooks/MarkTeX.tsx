@@ -1,10 +1,24 @@
-import React, { useMemo } from "react";
-import DOMPurify from 'dompurify';
+import React, { useEffect, useMemo } from "react";
+//import DOMPurify from 'dompurify';
 import { marked } from "marked";
-import { MathJax } from "better-react-mathjax";
 
 interface MarkTeXProps {
   content: string
+}
+
+const CustomLatex: React.FC<MarkTeXProps> = ({content}) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.MathJax?.typeset) {
+      window.MathJax.typeset([containerRef.current])
+    }
+  }, [content])
+  return (
+    <div ref={containerRef}>
+      {content}
+    </div>
+  )
 }
 
 const MathTeX: React.FC<MarkTeXProps> = ({content}) => {
@@ -12,15 +26,13 @@ const MathTeX: React.FC<MarkTeXProps> = ({content}) => {
   const parsedHTML = useMemo(() => {
     const doubleEscapedContent =content.replace(/\\/g, '\\\\')
     const parsedContent = marked.parse(doubleEscapedContent, { async: false })
-    return DOMPurify.sanitize(parsedContent)
+    return parsedContent
 
   }, [content]);
 
   return (
     <>
-      <MathJax>
-        <div dangerouslySetInnerHTML={{__html: parsedHTML}}/>
-      </MathJax>
+      <CustomLatex content={parsedHTML}/>
     </>
   )
 }
