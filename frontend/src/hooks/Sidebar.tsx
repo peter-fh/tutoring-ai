@@ -20,7 +20,7 @@ function CourseSelect() {
     <div className="option">
       <h3>Course</h3>
 
-      <select name="course-select" id="modal-course-select" className="select-box" onChange={onChange} defaultValue={course}> 
+      <select className="select-box" onChange={onChange} value={course}> 
         {Object.values(Course).map((option) => (
           <option key={option} value={option}>
             {option}
@@ -51,10 +51,14 @@ function QuestionTypeSelect() {
 }
 
 function BrevitySelect() {
+  const { detailLevel, setDetailLevel} = useGlobalState()
+  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setDetailLevel(event.target.value as DetailLevel)
+  }
   return (
     <div className="option">
       <h3>Level of Detail</h3>
-      <select name="brevity-select" id="brevity-select" className="select-box" defaultValue={Object.values(DetailLevel)[2]}>
+      <select className="select-box" onChange={onChange} value={detailLevel}>
         {Object.values(DetailLevel).map((option) => (
           <option key={option} value={option}>
             {option}
