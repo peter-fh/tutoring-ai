@@ -18,7 +18,7 @@ const CustomLatex: React.FC<MarkTeXProps> = ({content}) => {
   )
 }
 
-const MathTeX: React.FC<MarkTeXProps> = ({content}) => {
+const MarkTeX: React.FC<MarkTeXProps> = ({content}) => {
 
   const parsedHTML = useMemo(() => {
     const doubleEscapedContent =content.replace(/\\/g, '\\\\')
@@ -35,4 +35,4 @@ const MathTeX: React.FC<MarkTeXProps> = ({content}) => {
   )
 }
 
-export default MathTeX
+export default MarkTeX

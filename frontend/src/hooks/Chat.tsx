@@ -1,22 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Chat.css'
 import { useGlobalState } from '../GlobalState'
 import { Message, newMessage } from '../types/message'
-import MathTeX from './MarkTeX'
+import MarkTeX from './MarkTeX'
 
 const APIEndpoint = '/question'
 
 
 
 function Chat() {
-  const [message, setMessage] = useState('')
-  const {question, course, detailLevel} = useGlobalState()
   const { 
     conversation, 
     addMessage,  
   } = useGlobalState()
+  const [message, setMessage] = useState('')
+  const {question, course, detailLevel} = useGlobalState()
   const [messages, setMessages] = useState<string[]>([])
   const [aiMessage, setAiMessage] = useState('')
+  const [lock, setLock] = useState(false)
 
 
   async function ask(conversation: Message[]) {
@@ -58,15 +59,36 @@ function Chat() {
   }
 
   const handleSendMessage = async () => {
-    const fullConversation = [...conversation, newMessage(message, "user")]
-    setMessages([...messages!, message])
-    const aiMessagePromise = ask(fullConversation)
-    const aiMessage = await aiMessagePromise
-    setMessages([...messages!, message, aiMessage])
-
-    addMessage(newMessage(message, "user"))
-    addMessage(newMessage(aiMessage, "assistant"))
+    if (!lock && message != "") {
+      setLock(true)
+      const fullConversation = [...conversation, newMessage(message, "user")]
+      setMessages([...messages!, message])
+      setMessage("")
+      const aiMessagePromise = ask(fullConversation)
+      const aiMessage = await aiMessagePromise
+      setMessages([...messages!, message, aiMessage])
+      addMessage(newMessage(message, "user"))
+      addMessage(newMessage(aiMessage, "assistant"))
+      setLock(false)
+    } else if (!lock) {
+      setMessage("")
+    }
   }
+
+  const enterListener = (e: KeyboardEvent) => {
+    if (e.key == "Enter") {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", enterListener, false)
+
+    return () => {
+      document.removeEventListener("keydown", enterListener, false)
+    }
+  })
 
   return (
     <>
@@ -80,12 +102,12 @@ function Chat() {
         </span>
         {messages && messages.map((message, index) => (
           <span key={index}className="output">
-            <MathTeX content={message}/>
+            <MarkTeX content={message}/>
           </span>
         ))}
         {aiMessage != '' && (
           <span key={-1}className="output">
-            <MathTeX content={aiMessage}/>
+            <MarkTeX content={aiMessage}/>
           </span>
         )}
         <div className="input">
