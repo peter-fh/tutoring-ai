@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './Chat.css'
 import { useGlobalState } from '../GlobalState'
 import { Message, newMessage } from '../types/message'
+import MathTeX from './MarkTeX'
 
 const APIEndpoint = '/question'
 
@@ -81,7 +82,7 @@ function Chat() {
         </span>
         {messages && messages.map((message, index) => (
           <span key={index}className="output">
-            <p>{message}</p>
+            <MathTeX content={message}/>
           </span>
         ))}
         <div className="input">
