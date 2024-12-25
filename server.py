@@ -1,25 +1,29 @@
 import os
-from flask import Flask, request, render_template, send_from_directory, stream_with_context, Response
 from flask import Flask, request, send_from_directory, stream_with_context, Response
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
-import json
 
 # Initialize the server library
 app = Flask(__name__, static_folder="frontend/dist")
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory('./images', 'icon.png', mimetype='image/png')
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
+
+    return send_from_directory(app.static_folder, 'icon.png', mimetype='image/png')
 
 # Handles showing the website's main page
 @app.route('/')
 def index():
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
     return send_from_directory(app.static_folder, "index.html")
-    # return render_template("index.html")
 
 
 @app.route("/assets/<path:path>")
 def serve_assets(path):
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
     return send_from_directory(app.static_folder + os.sep + "assets", path)
 
 # Handles clicking the "Ask" button
