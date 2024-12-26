@@ -109,12 +109,20 @@
 }
 
 .chat {
-	width: 80vw;
+	padding-top: 10vh;
 	padding-left: 25vw;
+	padding-right: 25vw;
+	width: 100;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	margin-bottom: 20vh;
+}
+
+a {
+
+	text-decoration: none;
+	color: gray;
 }
 
 .output {
