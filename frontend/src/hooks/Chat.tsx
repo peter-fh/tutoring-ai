@@ -31,8 +31,6 @@ function Chat() {
       },
       body: JSON.stringify(conversation)
     })
-    console.log("Starting request")
-    console.log(conversation)
     const start_time = performance.now()
     const response = await fetch(request)
     const reader = response.body!.getReader()
@@ -47,7 +45,6 @@ function Chat() {
 
       const chunk = decoder.decode(value, { stream: true})
       answer += chunk
-      console.log(chunk)
       setAiMessage(answer)
     }
     setAiMessage('')
