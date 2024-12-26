@@ -66,6 +66,7 @@ The student does not yet know the following concepts relating to derivatives:
 
  - The definition of the derivative
  - Derivative rules: Power rule, Product rule, Quotient rule, Chain rule
+ - Logarithmic differentiation
  - Implicit differentiation
  - Linearization
  - Related rates

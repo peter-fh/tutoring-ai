@@ -10,8 +10,8 @@ class PromptType(Enum):
 prompt_dir = "prompt"
 course_prompt_dir = prompt_dir + os.sep + "course"
 instructions_dir = prompt_dir + os.sep + "instructions"
-concept_prompt_file = instructions_dir + os.sep + "concept_prompt.txt"
-problem_prompt_file = instructions_dir + os.sep + "problem_prompt.txt"
+concept_prompt_file = instructions_dir + os.sep + "concept_prompt.md"
+problem_prompt_file = instructions_dir + os.sep + "problem_prompt.md"
 
 def generateCoursePrompt(course_code: str):
     # Open the coures json file and extract the course specific information
