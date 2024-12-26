@@ -5,8 +5,8 @@ from prompt.prompt_manager import generatePrompt, PromptType
 
 # Initialize the server library
 app = Flask(__name__, static_folder="frontend/dist")
-@app.route('/favicon.ico')
-def favicon():
+@app.route('/icon.png')
+def icon():
     if not app.static_folder:
         raise Exception("Static folder not found!")
 
