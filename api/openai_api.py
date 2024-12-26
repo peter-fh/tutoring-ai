@@ -4,8 +4,8 @@ import os
 from dotenv import load_dotenv
 import textwrap
 
-prompt_dir = "prompt" + os.sep + "prompts"
-example_response_file = prompt_dir + os.sep + "example_response.txt"
+api_dir = "api"
+example_response_file = api_dir + os.sep + "example_response.txt"
 
 load_dotenv(override=True)
 def wrap(text, indent=0):
