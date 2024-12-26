@@ -4,7 +4,7 @@ This project is a prototype of a tutoring AI that uses ChatGPT. It sends special
 
 ## Deployment
 
-This project is deployed via Vercel to [tutoring-ai.onrender.com](https://tutoring-ai.onrender.com/).
+This project is deployed via Render.com to [tutoring-ai.onrender.com](https://tutoring-ai.onrender.com/).
 
 ## Contributing
 

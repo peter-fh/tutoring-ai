@@ -56,10 +56,10 @@ def question():
         message = request.get_json()
 
         # Generate the prompt based on the course
-        course_info, prompt = generatePrompt(prompt_type, course, brevity)
+        prompt = generatePrompt(prompt_type, course, brevity)
 
         # Ask the question with the context of the selected course
-        stream = ask(message, course_info, prompt, dummy_response=use_example_responses) 
+        stream = ask(message, prompt, prompt_type, dummy_response=use_example_responses) 
 
         return Response(stream_with_context(stream), content_type="text/plain")
 

@@ -42,9 +42,9 @@ def generateProblemPrompt(brevity: str):
 
 def generatePrompt(prompt_type: PromptType, course_code: str, brevity: str):
     if prompt_type == PromptType.PROBLEM:
-        return generateCoursePrompt(course_code), generateProblemPrompt(brevity)
+        return generateProblemPrompt(brevity) + generateCoursePrompt(course_code)
     elif prompt_type == PromptType.CONCEPT:
-        return generateCoursePrompt(course_code), generateConceptPrompt(brevity)
+        return generateConceptPrompt(brevity) + generateCoursePrompt(course_code)
 
 
 

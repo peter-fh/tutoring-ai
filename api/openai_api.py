@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 import textwrap
 
+from prompt.prompt_manager import PromptType
+
 api_dir = "api"
 example_response_file = api_dir + os.sep + "example_response.txt"
 
@@ -28,17 +30,11 @@ def displayConversation(conversation):
             print(line)
     print("=" * 74)
 
-def ask(conversation, course_info, prompt, dummy_response=False):
+def ask(conversation, prompt, prompt_type, dummy_response=False):
     # Retreive the OpenAI API Key
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
-    if dummy_response:
-        with open(example_response_file) as f:
-            for line in f:
-                time.sleep(0.05)
-                yield line
-        return
 
     # Display the query that is about to be sent in the terinabecause something is wrong."l
     '''
@@ -53,27 +49,30 @@ def ask(conversation, course_info, prompt, dummy_response=False):
         "role": "system",
         "content": [{
             "type": "text",
-            "text": course_info 
-        }
-                    ]
-    })
-    conversation.insert(0, {
-        "role": "system",
-        "content": [{
-            "type": "text",
             "text": prompt
         }
                     ]
     })
     displayConversation(conversation)
 
+    if dummy_response:
+        with open(example_response_file) as f:
+            for line in f:
+                time.sleep(0.05)
+                yield line
+        return
+
+
+    temperature = 0.7
+    if prompt_type == PromptType.PROBLEM:
+        temperature = 0
     # Send the request to OpenAI API
     stream = client.chat.completions.create(
 
         #   # Model of GPT
         model="gpt-4o",
         messages=conversation,
-        temperature=0,
+        temperature=temperature,
         stream=True,
     )
 

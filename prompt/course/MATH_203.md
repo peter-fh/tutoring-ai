@@ -1,6 +1,6 @@
 # About the Student
 
-The student is taking a Calculus course called Caluculus 1: Differential Caluclus. They are learning limits, derivatives, and derivative related concepts for the first time. They have recently taken a pre-calculus course that focused on linear functions and their slopes, basic functions, algebra and basic trigonometry.
+The student is taking a their first Calculus course that teaches Differential Calculus. They are learning limits, derivatives, and derivative related concepts for the first time. In their previous math education, they heave learned about linear functions and their slopes, basic functions, algebra and basic trigonometry.
 
 ## Prerequisite Knowledge
 
@@ -86,3 +86,4 @@ The following are some notes about the course that the student is taking:
 
  - Notation for derivative rules uses f and g instead of u and v
  - The student is heavily encouraged to check both the left and the right limits of a function when checking for horizontal asymptotes (positive and negative infinity)
+
