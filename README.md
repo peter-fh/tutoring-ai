@@ -8,7 +8,7 @@ This project is deployed via Vercel to [tutoring-ai.onrender.com](https://tutori
 
 ## Contributing
 
-For information about contributing to this project, see the [documentation](CONTRIBUTING.md).
+For information about contributing to this project, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Front end
 
