@@ -1,8 +1,10 @@
 import os
+import sys
 from flask import Flask, request, send_from_directory, stream_with_context, Response
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
 
+use_example_responses = False
 # Initialize the server library
 app = Flask(__name__, static_folder="frontend/dist")
 @app.route('/icon.png')
@@ -57,7 +59,7 @@ def question():
         course_info, prompt = generatePrompt(prompt_type, course, brevity)
 
         # Ask the question with the context of the selected course
-        stream = ask(message, course_info, prompt, dummy_response=False) 
+        stream = ask(message, course_info, prompt, dummy_response=use_example_responses) 
 
         return Response(stream_with_context(stream), content_type="text/plain")
 
@@ -73,5 +75,7 @@ if __name__ == '__main__':
     print(f'{"=    Enter the following url into the browser:":<69}=')
     print(f'{"=    http://127.0.0.1:" + str(port):<69}=')
     print("=" * 70)
+    if len(sys.argv) > 1 and sys.argv[1] == "--debug":
+        use_example_responses=True
     app.run(port=8070, debug=True)
 
