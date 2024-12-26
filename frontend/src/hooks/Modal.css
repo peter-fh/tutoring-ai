@@ -1,0 +1,60 @@
+
+.course-modal {
+	display: block;
+	position: fixed;
+	z-index: 99;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #1d1d1d;
+}
+
+.course-modal-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+
+.type-modal {
+	display: block;
+	position: fixed;
+	z-index: 99;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #1d1d1d;
+}
+
+.type-modal-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.modal-close-button{
+	border: solid;
+	border-color: #505050;
+	border-radius: 5px;
+	background-color: #1d1d1d;
+	margin: 1em 0em 0em 0em;
+	height: 2em;
+	color: white;
+}
+
+.modal-close-button:hover {
+	border-color: white;
+	background-color: #303030;
+}
+
+.modal-close-button:active {
+	background-color: white;
+}
+
+

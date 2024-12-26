@@ -36,7 +36,7 @@ def ask(conversation, course_info, prompt, dummy_response=False):
     if dummy_response:
         with open(example_response_file) as f:
             for line in f:
-                time.sleep(0.1)
+                time.sleep(0.05)
                 yield line
         return
 

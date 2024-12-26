@@ -1,21 +1,30 @@
-from flask import Flask, request, render_template, send_from_directory, stream_with_context, Response
+import os
+from flask import Flask, request, send_from_directory, stream_with_context, Response
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
-import json
-
-# TODO: Prevent spamming the ask button to ensure malicious users don't abuse the system
 
 # Initialize the server library
-app = Flask(__name__)
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory('./images', 'icon.png', mimetype='image/png')
+app = Flask(__name__, static_folder="frontend/dist")
+@app.route('/icon.png')
+def icon():
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
+
+    return send_from_directory(app.static_folder, 'icon.png', mimetype='image/png')
 
 # Handles showing the website's main page
 @app.route('/')
 def index():
-    return render_template("index.html")
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
+    return send_from_directory(app.static_folder, "index.html")
 
+
+@app.route("/assets/<path:path>")
+def serve_assets(path):
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
+    return send_from_directory(app.static_folder + os.sep + "assets", path)
 
 # Handles clicking the "Ask" button
 @app.route('/question/', methods=['POST'])
@@ -25,6 +34,9 @@ def question():
 
         # If the question the student asks is more than a certain number of characters, reject the question
         # Each character/word of the question contributes to the cost of the API call
+        # Disabled since a conversation after one message is already longer than this value
+        # TODO: add more protection/incentive against long conversation
+
         # if len(request.data) > 2500:
             # return "Message too long!"
 
