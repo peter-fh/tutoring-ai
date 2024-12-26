@@ -1,50 +1,52 @@
-# React + TypeScript + Vite
+# React + Typescript front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the ai chatbot, written in react + typescript.
 
-Currently, two official plugins are available:
+## CSS
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project uses raw css defined in .css files for each corresponding .tsx file. The styling for this project is not super organized and may not necessarily follow any conventions. Contributions that can help organize the stylesheets of this project, even bringing in a dependency like Tailwind, are welcome.
 
-## Expanding the ESLint configuration
+## Global State
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The information that is required to process an OpenAI API request is stored in the global state, in src/GlobalState.tsx. This includes the course, detail level, and question type. All of the types are stored as enums in src/types/options.ts.
 
-- Configure the top-level `parserOptions` property like this:
+Any component that has a way for the user to change options for how ChatGPT should respond to their messages should interact with the global state. 
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+For example, a component that allows the student to select which course they are asking about should retrieve the value and setter from the global state:
+
+```ts
+  const { course, setCourse } = useGlobalState()
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+The function to interact with this component should call the setter, for example:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```ts
+const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  setCourse(event.target.value as Course)
+}
 ```
+
+When possible, the component should rely only on the type to list each of the options. This allows us to only change the types/options.ts file in order to add a new value to a specific option.
+
+For example, the course select is created by mapping over the Course type:
+
+```ts
+<select className="select-box" onChange={onChange} value={course}> 
+  {Object.values(Course).map((option) => (
+  <option key={option} value={option}>
+    {option}
+  </option>
+  ))}
+</select>
+```
+
+If a new course is added to the Courses enum in src/types/options.ts, it will automatically be added to this enum.
+
+## Latex + Markdown rendering
+
+After a lot of trial and error, I found that the best way to render Latex and Markdown at the same time in an actively streamed API response is by using the regular MathJax javascript package (MathJax.typeset()), included as a script tag in index.html, and marked (marked.parse()). The calls to these libraries are done via the MarkTeX hook defined in src/hooks/MarkTeX.tsx.
+
+## Modals
+
+In order to ensure that the student chooses the course and type of problem they are asking about before interacting with the chatbot, a modal is shown that blocks the rest of the UI until the selections are made. There are currently two, one for selecting a course, and another for selecting the type of problem. These modals are defined in src/hooks/Modal.tsx
