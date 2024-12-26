@@ -98,7 +98,7 @@ function Chat() {
           </p>
         </span>
         {messages && messages.map((message, index) => (
-          <span key={index}className="output">
+          <span key={index}className={index % 2 == 0 ? "question" : "output"}>
             <MarkTeX content={message}/>
           </span>
         ))}
