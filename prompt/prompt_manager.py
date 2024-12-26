@@ -7,31 +7,21 @@ class PromptType(Enum):
     CONCEPT = 2
 
 
-prompt_dir = "prompt" + os.sep + "prompts"
-course_json_file = prompt_dir + os.sep + "courses.json"
-course_prompt_file = prompt_dir + os.sep + "course_prompt.txt"
-concept_prompt_file = prompt_dir + os.sep + "concept_prompt.txt"
-problem_prompt_file = prompt_dir + os.sep + "problem_prompt.txt"
+prompt_dir = "prompt"
+course_prompt_dir = prompt_dir + os.sep + "course"
+instructions_dir = prompt_dir + os.sep + "instructions"
+concept_prompt_file = instructions_dir + os.sep + "concept_prompt.md"
+problem_prompt_file = instructions_dir + os.sep + "problem_prompt.md"
 
 def generateCoursePrompt(course_code: str):
     # Open the coures json file and extract the course specific information
-    course_file = open(course_json_file)
-    courses = json.load(course_file)
-    course = courses[course_code]
+    course_filename = course_prompt_dir + os.sep + course_code.replace(" ", "_") + ".md"
+    course_file = open(course_filename)
 
     # Open and read the prompt txt file
-    prompt = open(course_prompt_file).read()
+    prompt = course_file.read()
 
-    # Replace the placeholder variables with the course information
-    return_prompt = (prompt
-        .replace("{$name}", course["name"])
-        .replace("{$concepts}", course["content"])
-        .replace("{$prerequisite-concepts}", course["prerequisite"])
-        .replace("{$notes}", "\n- ".join(course["notes"])))
-
-    # Return the final constructed prompt
-
-    return return_prompt
+    return prompt 
 
 def generateConceptPrompt(brevity: str):
     prompt = open(concept_prompt_file).read()
@@ -52,9 +42,9 @@ def generateProblemPrompt(brevity: str):
 
 def generatePrompt(prompt_type: PromptType, course_code: str, brevity: str):
     if prompt_type == PromptType.PROBLEM:
-        return generateCoursePrompt(course_code), generateProblemPrompt(brevity)
+        return generateProblemPrompt(brevity) + generateCoursePrompt(course_code)
     elif prompt_type == PromptType.CONCEPT:
-        return generateCoursePrompt(course_code), generateConceptPrompt(brevity)
+        return generateConceptPrompt(brevity) + generateCoursePrompt(course_code)
 
 
 
