@@ -22,10 +22,27 @@ There are a few things that are needed to get started with this project:
 git clone https://github.com/peter-fh/tutoring-ai.git
 ```
 
-- Install dependencies and build react project:
+- Install dependencies and build react project
+
+On macos and linux:
 ```bash
-./install.sh
+./build.sh
 ```
+
+On windows:
+```bash
+.\build.bat
+```
+
+### Making a contribution
+
+- Create a new branch:
+
+```bash
+git checkout -b {new_branch_name}
+```
+
+After changes are made and pushed to this branch, open a pull request to merge this branch into main. A preview deployment is automatically made for every pull request. Click "view deployment" on the comment automatically made on the pull request to see what the site will look like after your changes are deployed.
 
 ## Interacting with ChatGPT (OpenAI API)
 
