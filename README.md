@@ -4,7 +4,7 @@ This project is a prototype of a tutoring AI that uses ChatGPT. It sends special
 
 ## Deployment
 
-This project is deployed via Render.com to [tutoring-ai.onrender.com](https://tutoring-ai.onrender.com/).
+This project is deployed via Render.com to [tutoring-ai.onrender.com](https://tutoring-ai.onrender.com/). In its current state, the site takes 50 seconds to spin up after it is inactive for some time. If it does not load, wait or try again in 50 seconds. This will be resolved when we can invest in a paid hosting service, whether onrender or something else.
 
 ## Contributing
 
