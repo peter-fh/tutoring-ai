@@ -11,6 +11,8 @@ type GlobalState = {
   setDetailLevel: (value: DetailLevel) => void;
   conversation: Message[];
   addMessage: (value: Message) => void;
+  chatLoaded: boolean;
+  setChatLoaded: (value: boolean) => void;
 };
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -28,6 +30,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [course, setCourse] = useState(Course.MATH203);
   const [detailLevel, setDetailLevel] = useState(DetailLevel.DETAILED);
   const [conversation, setMessages] = useState<Message[]>([]);
+  const [chatLoaded, setChatLoaded] = useState<boolean>(false);
 
   const addMessage = (message: Message) => {
     setMessages((prevMessages) => [...prevMessages, message])
@@ -43,6 +46,8 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
       setDetailLevel,
       conversation,
       addMessage,
+      chatLoaded,
+      setChatLoaded
     }}>
       {children}
     </GlobalStateContext.Provider>

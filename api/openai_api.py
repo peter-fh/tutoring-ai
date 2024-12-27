@@ -30,6 +30,14 @@ def displayConversation(conversation):
             print(line)
     print("=" * 74)
 
+def introductionGenerator():
+    intro_message = "Hello! I'm an AI chatbot powered by Chat-GPT. I use context specific to Concordia to provide better explanations. AI makes mistakes, so please double check any answers you are given."
+    split_message = intro_message.split(" ")
+    for word in split_message:
+        time.sleep(0.03)
+        yield word + " "
+
+
 def ask(conversation, prompt, prompt_type, dummy_response=False):
     # Retreive the OpenAI API Key
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -58,8 +66,9 @@ def ask(conversation, prompt, prompt_type, dummy_response=False):
     if dummy_response:
         with open(example_response_file) as f:
             for line in f:
-                time.sleep(0.05)
-                yield line
+                for word in line.split(" "):
+                    time.sleep(0.02)
+                    yield word + " "
         return
 
 

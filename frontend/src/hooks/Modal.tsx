@@ -5,6 +5,7 @@ import './Modal.css'
 
 function Modal() {
 
+  const { setChatLoaded } = useGlobalState();
   const [showFirst, setShowFirst] = useState(true);
   const [hideSecond, setHideSecond] = useState(false);
   // TODO: Add "unspecified" option to course and don't allow closing the course modal
@@ -51,10 +52,12 @@ function Modal() {
 	  <p>What type of question do you have?</p>
 	  <button onClick={() => {
 	      setHideSecond(true)
+	      setChatLoaded(true)
 	      setQuestion(QuestionType.CONCEPT)
 	    }} id="modalCloseButton" className="modal-close-button">I have a question about a concept</button>
 	  <button onClick={() => {
 	      setHideSecond(true)
+	      setChatLoaded(true)
 	      setQuestion(QuestionType.PROBLEM)
 	    }} id="modalCloseButton" className="modal-close-button">I have a question about a problem</button>
 
