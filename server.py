@@ -1,5 +1,5 @@
 from flask import Flask, request, send_from_directory, stream_with_context, Response
-from api.openai_api import ask
+from api.openai_api import ask, introductionGenerator
 from prompt.prompt_manager import generatePrompt, PromptType
 import os
 import sys
@@ -34,6 +34,13 @@ def serve_assets(path):
     if not app.static_folder:
         raise Exception("Static folder not found!")
     return send_from_directory(app.static_folder + os.sep + "assets", path)
+
+@app.route('/introduction')
+def introduction():
+    stream = introductionGenerator()
+    return Response(stream_with_context(stream), content_type="text/plain")
+
+
 
 # Handles clicking the "Ask" button
 @app.route('/question/', methods=['POST'])

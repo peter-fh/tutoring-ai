@@ -5,6 +5,7 @@ import { Message, newMessage, newMessageWithImage } from '../types/message'
 import MarkTeX from './MarkTeX'
 
 const APIEndpoint = '/question'
+const introEndpoint = '/introduction'
 
 
 
@@ -12,6 +13,7 @@ function Chat() {
   const { 
     conversation, 
     addMessage,  
+    chatLoaded,
   } = useGlobalState()
   const [message, setMessage] = useState('')
   const {question, course, detailLevel} = useGlobalState()
@@ -21,6 +23,36 @@ function Chat() {
   //const [file, setFile] = useState(false)
   const [image, setImage] = useState('')
 
+  async function intro() {
+    setLock(true)
+    const request = new Request(introEndpoint, {
+      method: 'GET'
+    })
+
+
+    const start_time = performance.now()
+    const response = await fetch(request)
+    const reader = response.body!.getReader()
+    const decoder = new TextDecoder('utf-8')
+    var answer = ""
+
+    while (true) {
+      const {value, done} = await reader.read()
+      if (done) {
+        break
+      }
+
+      const chunk = decoder.decode(value, { stream: true})
+      answer += chunk
+      setAiMessage(answer)
+    }
+    setAiMessage('')
+
+    setMessages([answer])
+    const end_time = performance.now()
+    console.log(`Response took ${(end_time - start_time) / 1000}`)
+    setLock(false)
+  }
 
   async function ask(conversation: Message[]) {
     const request = new Request(APIEndpoint, {
@@ -106,6 +138,12 @@ function Chat() {
     }
   })
 
+  useEffect(() => {
+    if (chatLoaded){
+      intro()
+    }
+  }, [chatLoaded])
+
 
   /*
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -131,14 +169,8 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       <div className="chat">
         <h1 className="title">MAT AI Assistant</h1>
         <div className="messages">
-          <span className="output">
-            <p>
-              Hello! I'm an AI chatbot powered by Chat-GPT. I use context specific to Concordia to provide
-              better explanations. AI makes mistakes, so please double check any answers you are given.
-            </p>
-          </span>
           {messages && messages.map((message, index) => (
-            <span key={index}className={index % 2 == 0 ? "question" : "output"}>
+            <span key={index}className={index % 2 == 1 ? "question" : "output"}>
               <MarkTeX content={message}/>
             </span>
           ))}
