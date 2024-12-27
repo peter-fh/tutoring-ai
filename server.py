@@ -1,5 +1,5 @@
 from flask import Flask, request, send_from_directory, stream_with_context, Response
-from api.openai_api import ask, introductionGenerator
+from api.openai_api import ask, readImage, introductionGenerator
 from prompt.prompt_manager import generatePrompt, PromptType
 import os
 import sys
@@ -41,9 +41,16 @@ def introduction():
     return Response(stream_with_context(stream), content_type="text/plain")
 
 
+@app.route('/image', methods=['POST'])
+def image():
+    if request.method != 'POST':
+        return "Invalid request type", 400
+
+    image = request.get_data(as_text=True)
+    return readImage(image, dummy_response=use_example_responses)
 
 # Handles clicking the "Ask" button
-@app.route('/question/', methods=['POST'])
+@app.route('/question', methods=['POST'])
 def question():
 
     if request.method == 'POST':
