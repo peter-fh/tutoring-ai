@@ -18,3 +18,21 @@ export function newMessage(content: string, role: string) {
     content: [messageContent]
   }
 }
+
+export function newMessageWithImage(content: string, image: string) {
+  return {
+    role: 'user',
+    content: [{
+      type: 'text',
+      text: content,
+    },
+      {
+        type: 'image_url',
+        image_url: {
+          url: image
+        }
+      },
+    ]
+  }
+}
+

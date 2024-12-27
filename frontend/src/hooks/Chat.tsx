@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, /*useRef,*/ useState } from 'react'
 import './Chat.css'
 import { useGlobalState } from '../GlobalState'
-import { Message, newMessage } from '../types/message'
+import { Message, newMessage, newMessageWithImage } from '../types/message'
 import MarkTeX from './MarkTeX'
 
 const APIEndpoint = '/question'
@@ -18,6 +18,8 @@ function Chat() {
   const [messages, setMessages] = useState<string[]>([])
   const [aiMessage, setAiMessage] = useState('')
   const [lock, setLock] = useState(false)
+  //const [file, setFile] = useState(false)
+  const [image, setImage] = useState('')
 
 
   async function ask(conversation: Message[]) {
@@ -27,10 +29,12 @@ function Chat() {
         'Content-Type': 'application/json',
         'Course': course,
         'Brevity': detailLevel,
-        'Type': question
+        'Type': question,
       },
       body: JSON.stringify(conversation)
     })
+
+
     const start_time = performance.now()
     const response = await fetch(request)
     const reader = response.body!.getReader()
@@ -56,17 +60,32 @@ function Chat() {
   }
 
   const handleSendMessage = async () => {
-    if (!lock && message != "") {
+    if (!lock && (message || image)) {
+      var current_message = message
+      var json_message: any = newMessage(message, "user")
+      if (image) {
+        json_message = newMessageWithImage(message, image)
+      }
       setLock(true)
-      const fullConversation = [...conversation, newMessage(message, "user")]
-      setMessages([...messages!, message])
+      const fullConversation = [...conversation, json_message]
+      if (image) {
+        fullConversation.push(newMessage(image, "user"))
+        current_message += "\n*[uploaded image]*"
+      }
+      setMessages([...messages!, current_message])
       setMessage("")
       const aiMessagePromise = ask(fullConversation)
       const aiMessage = await aiMessagePromise
-      setMessages([...messages!, message, aiMessage])
+      setMessages([...messages!, current_message, aiMessage])
       addMessage(newMessage(message, "user"))
+      if (image) {
+
+        addMessage(newMessage(image, "user"))
+      } 
       addMessage(newMessage(aiMessage, "assistant"))
       setLock(false)
+      setImage('')
+      //setFile(false)
     } else if (!lock) {
       setMessage("")
     }
@@ -87,26 +106,48 @@ function Chat() {
     }
   })
 
+
+  /*
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleFileButtonClick = () => {
+    fileInputRef!.current!.click()
+  }
+
+const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const img = event.target.files?.[0];
+    if (img) {
+      setFile(true)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImage(reader!.result!.toString())
+      }
+      reader.readAsDataURL(img)
+    }
+  };
+  */
+
   return (
     <>
       <div className="chat">
         <h1 className="title">MAT AI Assistant</h1>
-        <span className="output">
-          <p>
-            Hello! I'm an AI chatbot powered by Chat-GPT. I use context specific to Concordia to provide
-            better explanations. AI makes mistakes, so please double check any answers you are given.
-          </p>
-        </span>
-        {messages && messages.map((message, index) => (
-          <span key={index}className={index % 2 == 0 ? "question" : "output"}>
-            <MarkTeX content={message}/>
+        <div className="messages">
+          <span className="output">
+            <p>
+              Hello! I'm an AI chatbot powered by Chat-GPT. I use context specific to Concordia to provide
+              better explanations. AI makes mistakes, so please double check any answers you are given.
+            </p>
           </span>
-        ))}
-        {aiMessage != '' && (
-          <span key={-1}className="output">
-            <MarkTeX content={aiMessage}/>
-          </span>
-        )}
+          {messages && messages.map((message, index) => (
+            <span key={index}className={index % 2 == 0 ? "question" : "output"}>
+              <MarkTeX content={message}/>
+            </span>
+          ))}
+          {aiMessage != '' && (
+            <span key={-1}className="output">
+              <MarkTeX content={aiMessage}/>
+            </span>
+          )}
+        </div>
         <div className="input">
           <textarea
             onChange={(event) => {
@@ -118,7 +159,32 @@ function Chat() {
             placeholder="Enter your message here..."
             className="input-block"
           />
-          <button  className="send-button" onClick={handleSendMessage}>Ask</button>
+          {/*
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            accept=".png,.jpg,.jpeg,.gif"
+            onChange={handleFileChange}
+            />
+          */}
+          <div className="button-container">
+            <button 
+              className="button" 
+              onClick={handleSendMessage}
+            >
+              <i className="fa-solid fa-arrow-up"/>
+            </button>
+            {/*
+            <button 
+              className="button" 
+              onClick={handleFileButtonClick}
+              style={{backgroundColor: file === true ? "#114444" : "#1d1d1d"}}
+            >
+              <i className="fa-solid fa-paperclip"/>
+            </button>
+            */}
+          </div>
         </div>
         <div className="chat-background"/>
       </div>

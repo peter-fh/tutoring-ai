@@ -1,8 +1,8 @@
-import os
-import sys
 from flask import Flask, request, send_from_directory, stream_with_context, Response
 from api.openai_api import ask
 from prompt.prompt_manager import generatePrompt, PromptType
+import os
+import sys
 
 use_example_responses = False
 # Initialize the server library
@@ -13,6 +13,13 @@ def icon():
         raise Exception("Static folder not found!")
 
     return send_from_directory(app.static_folder, 'icon.png', mimetype='image/png')
+
+@app.route('/font')
+def font():
+    if not app.static_folder:
+        raise Exception("Static folder not found!")
+
+    return send_from_directory(app.static_folder, 'proximanova.ttf')
 
 # Handles showing the website's main page
 @app.route('/')
@@ -50,16 +57,17 @@ def question():
 
         # Get question type
         question = request.headers["Type"]
+
         prompt_type = PromptType[question.upper()]
 
+        conversation = request.get_json()
         # Get the question that the user asked from the HTTP request
-        message = request.get_json()
 
         # Generate the prompt based on the course
         prompt = generatePrompt(prompt_type, course, brevity)
 
         # Ask the question with the context of the selected course
-        stream = ask(message, prompt, prompt_type, dummy_response=use_example_responses) 
+        stream = ask(conversation, prompt, prompt_type, dummy_response=use_example_responses) 
 
         return Response(stream_with_context(stream), content_type="text/plain")
 

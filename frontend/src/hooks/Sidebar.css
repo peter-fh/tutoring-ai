@@ -3,13 +3,17 @@
 	flex-direction: column;
 	text-align: center;
 	position: fixed;
-	width: 20vw;
-	height: 100vh;
-	background-color: #232323;
-	padding: 1em 2em 2em 2em;
-	z-index: 10;
+	width: 15em;
+	margin-right: 0;
+	margin-left: 0;
+	padding: 0 0 0 0;
+	left: 0;
+	height: 100%;
+	background-color: #1d1d1d;
+	z-index: 12;
 	overflow-y: auto;
 }
+
 
 .attribution {
 	display: fixed;

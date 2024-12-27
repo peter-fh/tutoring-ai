@@ -66,6 +66,7 @@ def ask(conversation, prompt, prompt_type, dummy_response=False):
     temperature = 0.7
     if prompt_type == PromptType.PROBLEM:
         temperature = 0
+
     # Send the request to OpenAI API
     stream = client.chat.completions.create(
 
