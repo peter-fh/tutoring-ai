@@ -5,17 +5,27 @@
 	border-radius: 5px;
 	padding: 5px 5px;
 	text-align-last: center;
+	font-family: "proximanova";
 
 }
 
 h2 {
 	text-decoration: underline;
 }
+
+@font-face {
+  font-family: 'proximanova';
+  src: local('proximanova'), url(/font) format('truetype');
+}
+
 body {
 	display: flex;
-	background-color: #1b1b1b;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	background-color: #222222;
 	margin: 0px 0px 0px 0px;	
 	color: white;
-	font-family: "Georgia", serif;
-	font-size: 1em;
+	font-family: "proximanova";
 }
+
