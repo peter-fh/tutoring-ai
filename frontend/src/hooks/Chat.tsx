@@ -1,4 +1,4 @@
-import { useEffect, /*useRef,*/ useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Chat.css'
 import { useGlobalState } from '../GlobalState'
 import { Message, newMessage, newMessageWithImage } from '../types/message'
@@ -20,7 +20,7 @@ function Chat() {
   const [messages, setMessages] = useState<string[]>([])
   const [aiMessage, setAiMessage] = useState('')
   const [lock, setLock] = useState(false)
-  //const [file, setFile] = useState(false)
+  const [file, setFile] = useState(false)
   const [image, setImage] = useState('')
 
   async function intro() {
@@ -117,7 +117,7 @@ function Chat() {
       addMessage(newMessage(aiMessage, "assistant"))
       setLock(false)
       setImage('')
-      //setFile(false)
+      setFile(false)
     } else if (!lock) {
       setMessage("")
     }
@@ -145,7 +145,6 @@ function Chat() {
   }, [chatLoaded])
 
 
-  /*
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleFileButtonClick = () => {
     fileInputRef!.current!.click()
@@ -162,7 +161,6 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       reader.readAsDataURL(img)
     }
   };
-  */
 
   return (
     <>
@@ -191,7 +189,6 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             placeholder="Enter your message here..."
             className="input-block"
           />
-          {/*
           <input
             type="file"
             ref={fileInputRef}
@@ -199,7 +196,6 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             accept=".png,.jpg,.jpeg,.gif"
             onChange={handleFileChange}
             />
-          */}
           <div className="button-container">
             <button 
               className="button" 
@@ -207,7 +203,6 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             >
               <i className="fa-solid fa-arrow-up"/>
             </button>
-            {/*
             <button 
               className="button" 
               onClick={handleFileButtonClick}
@@ -215,7 +210,6 @@ const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             >
               <i className="fa-solid fa-paperclip"/>
             </button>
-            */}
           </div>
         </div>
         <div className="chat-background"/>
