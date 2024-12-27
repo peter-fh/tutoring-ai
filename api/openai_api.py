@@ -66,14 +66,8 @@ def ask(conversation, prompt, prompt_type, dummy_response=False):
     temperature = 0.7
     if prompt_type == PromptType.PROBLEM:
         temperature = 0
-    # Send the request to OpenAI API
-    if dummy_response:
-        with open(example_response_file) as f:
-            for line in f:
-                time.sleep(0.05)
-                yield line
-        return
 
+    # Send the request to OpenAI API
     stream = client.chat.completions.create(
 
         #   # Model of GPT
