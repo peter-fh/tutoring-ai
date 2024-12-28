@@ -1,6 +1,6 @@
 from flask import Flask, request, send_from_directory, stream_with_context, Response
-from api.openai_api import ask, readImage, introductionGenerator
-from prompt.prompt_manager import generatePrompt, PromptType
+from api.openai_api import ask, readImage, introductionGenerator, summarize
+from prompt.prompt_manager import prompt, PromptType
 import os
 import sys
 
@@ -28,6 +28,13 @@ def index():
         raise Exception("Static folder not found!")
     return send_from_directory(app.static_folder, "index.html")
 
+@app.route('/summary', methods=['POST'])
+def summary():
+    if request.method != 'POST':
+        return "Invalid request type", 400
+
+    conversation = request.get_json()
+    return summarize(conversation)
 
 @app.route("/assets/<path:path>")
 def serve_assets(path):
@@ -78,10 +85,10 @@ def question():
         # Get the question that the user asked from the HTTP request
 
         # Generate the prompt based on the course
-        prompt = generatePrompt(prompt_type, course, brevity)
+        instructions = prompt(prompt_type, course, brevity)
 
         # Ask the question with the context of the selected course
-        stream = ask(conversation, prompt, prompt_type, dummy_response=use_example_responses) 
+        stream = ask(conversation, instructions, prompt_type, dummy_response=use_example_responses) 
 
         return Response(stream_with_context(stream), content_type="text/plain")
 

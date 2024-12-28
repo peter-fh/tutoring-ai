@@ -3,8 +3,7 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 import textwrap
-
-from prompt.prompt_manager import PromptType
+from prompt.prompt_manager import PromptType, summaryPrompt, imagePrompt
 
 api_dir = "api"
 example_response_file = api_dir + os.sep + "example_response.txt"
@@ -54,7 +53,7 @@ def readImage(image, dummy_response=False):
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": transcription_request},
+                    {"type": "text", "text": imagePrompt()},
                     {
                         "type": "image_url",
                         "image_url": {
@@ -68,10 +67,34 @@ def readImage(image, dummy_response=False):
         max_tokens=300
     )   
 
-    print(response.choices[0].message.content)
+    transcription = str(response.choices[0].message.content)
+    transcription = "The following is a transcription of an image:\n\n" + transcription
     print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
-    return str(response.choices[0].message.content)
+    return transcription
 
+def summarize(conversation):
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    conversation.insert(0, {
+        "role": "system",
+        "content": [{
+            "type": "text",
+            "text": summaryPrompt() 
+        }
+                    ]
+    })
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=conversation,
+        temperature=0,
+        max_tokens=300
+    )   
+
+
+    summary = str(response.choices[0].message.content)
+    summary = "The following is a summary of the previous conversation:\n\n" + summary
+    return summary
 
 def ask(conversation, prompt, prompt_type, dummy_response=False):
     # Retreive the OpenAI API Key

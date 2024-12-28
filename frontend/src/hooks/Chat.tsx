@@ -8,13 +8,14 @@ import imageCompression from 'browser-image-compression'
 const APIEndpoint = '/question'
 const IntroEndpoint = '/introduction'
 const ImageEndpoint = '/image'
+const SummaryEndpoint = '/summary'
 
-
+const MAX_CONVERSATION_LENGTH = 1000
 
 function Chat() {
   const { 
     conversation, 
-    addMessage,  
+    setConversation,
     chatLoaded,
   } = useGlobalState()
   const [message, setMessage] = useState('')
@@ -24,6 +25,7 @@ function Chat() {
   const [lock, setLock] = useState(false)
   const [file, setFile] = useState('')
   const [image, setImage] = useState('')
+  const [toSummarize, setToSummarize] = useState(false)
 
   async function intro() {
     setLock(true)
@@ -76,6 +78,26 @@ function Chat() {
     return transcription
   }
 
+  async function getSummary(conversation: Message[]) {
+    const request = new Request(SummaryEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(conversation)
+    })
+
+    const response = await fetch(request)
+    const reader = response.body!.getReader()
+    const decoder = new TextDecoder('utf-8')
+
+    const {value} = await reader.read()
+
+    const summary = decoder.decode(value, { stream: true})
+
+    return summary
+  }
+
   async function ask(conversation: Message[]) {
     const request = new Request(APIEndpoint, {
       method: 'POST',
@@ -87,6 +109,7 @@ function Chat() {
       },
       body: JSON.stringify(conversation)
     })
+
 
 
     const start_time = performance.now()
@@ -109,6 +132,7 @@ function Chat() {
 
     const end_time = performance.now()
     console.log(`Response took ${(end_time - start_time) / 1000}`)
+    setToSummarize(true)
 
     return answer
   }
@@ -138,20 +162,27 @@ function Chat() {
         setAiMessage("")
       }
 
-      console.log("IMAGE TRANSCRIPTION:\n", image_transcription)
-
-
       const aiMessagePromise = ask(fullConversation)
       const aiMessage = await aiMessagePromise
 
       setMessages([...messages!, current_message, aiMessage])
-      addMessage(newMessage(message, "user"))
       if (image) {
-        addMessage(newMessage(image_transcription, 'user'))
-      } 
-      addMessage(newMessage(aiMessage, "assistant"))
+        setConversation([
+          ...conversation, 
+          newMessage(message, 'user'), 
+          newMessage(image_transcription, 'user'),
+          newMessage(aiMessage, 'assistant'),
+        ])
+      } else {
+        setConversation([
+          ...conversation, 
+          newMessage(message, 'user'), 
+          newMessage(aiMessage, 'assistant'),
+        ])
+      }
 
       setImage('')
+
       setLock(false)
     } else if (!lock) {
       setMessage("")
@@ -178,6 +209,38 @@ function Chat() {
       intro()
     }
   }, [chatLoaded])
+
+  useEffect(() => {
+    if (toSummarize) {
+      summarize()
+    }
+  }, [conversation])
+
+
+  async function summarize() {
+    setToSummarize(false)
+    if (conversation.length < 2) {
+      return
+    }
+    var total_length = 0
+    for (var i = 0; i < conversation.length; i++) {
+      total_length += conversation[i].content[0].text.length
+    }
+
+    if (total_length <= MAX_CONVERSATION_LENGTH) {
+      return
+    }
+
+    if (conversation[conversation.length - 1].role != 'assistant') {
+      return
+    }
+    console.log("Summarizing")
+
+    
+    setLock(true)
+    setConversation([newMessage(await getSummary(conversation.slice(0, -2)), 'system'), conversation[conversation.length - 2], conversation[conversation.length - 1]])
+    setLock(false)
+  }
 
 
   const fileInputRef = useRef<HTMLInputElement>(null);
