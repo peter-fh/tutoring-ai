@@ -38,21 +38,45 @@ def introductionGenerator():
         yield word + " "
 
 
+def readImage(image, dummy_response=False):
+
+    if dummy_response:
+        time.sleep(2)
+        return "x^2*e^x (example response)"
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    transcription_request = "Please reply with only a transcription of this image."
+
+    # Send the request to OpenAI API
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": transcription_request},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": image,
+                        }
+                    },
+                ],
+            }
+        ],
+        temperature=0,
+        max_tokens=300
+    )   
+
+    print(response.choices[0].message.content)
+    print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
+    return str(response.choices[0].message.content)
+
+
 def ask(conversation, prompt, prompt_type, dummy_response=False):
     # Retreive the OpenAI API Key
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-
-
-    # Display the query that is about to be sent in the terinabecause something is wrong."l
-    '''
-    print(f"{'SYSTEM INSTRUCTIONS':^70}")
-    print(*wrap(prompt), sep="\n")
-    print(f"{'USER QUESTION':^70}")
-    print()
-    print(*wrap(conversation[-1]["content"][0]["text"]), sep="\n")
-    print("\n\n")
-    '''
     conversation.insert(0, {
         "role": "system",
         "content": [{
@@ -78,17 +102,17 @@ def ask(conversation, prompt, prompt_type, dummy_response=False):
 
     # Send the request to OpenAI API
     stream = client.chat.completions.create(
-
-        #   # Model of GPT
         model="gpt-4o",
         messages=conversation,
         temperature=temperature,
         stream=True,
     )
 
-    # # Extract the content of the returned message
+    # Extract the content of the returned message
     for chunk in stream:
         content = chunk.choices[0].delta.content 
         if content is not None:
             yield content
+
+
 
