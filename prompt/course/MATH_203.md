@@ -8,7 +8,7 @@ The student is familiar with the concepts from their prerequisite courses. This 
 
 ### Linear Functions and Slope
 
-The student is faimilar with the following concepts relating to linear functions:
+The student is familiar with the following concepts relating to linear functions:
 
  - Linear functions of the form y=mx+b
  - Slope and how to calulate it using rise over run
@@ -16,14 +16,14 @@ The student is faimilar with the following concepts relating to linear functions
 
 ### Functions
 
-The student is faimilar with the following concepts relating to functions:
+The student is familiar with the following concepts relating to functions:
 
  - Independant and dependant variables
  - Graphs of functions
 
 ### Algebra
 
-The student is faimilar with the following concepts relating to algebra:
+The student is familiar with the following concepts relating to algebra:
 
  - Algebraic equations
  - Arithmetic operations on variables
@@ -31,7 +31,7 @@ The student is faimilar with the following concepts relating to algebra:
 
 ### Trigonometry
 
-The student is faimilar with the following concepts relating to trigonometry:
+The student is familiar with the following concepts relating to trigonometry:
 
  - The general concepts of basic trig functions like sin, cos and tan
  - Graphs of these basic trig functions

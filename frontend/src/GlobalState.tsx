@@ -10,6 +10,7 @@ type GlobalState = {
   detailLevel: DetailLevel;
   setDetailLevel: (value: DetailLevel) => void;
   conversation: Message[];
+  setConversation: (value: Message[]) => void;
   addMessage: (value: Message) => void;
   chatLoaded: boolean;
   setChatLoaded: (value: boolean) => void;
@@ -29,11 +30,11 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [question, setQuestion] = useState(QuestionType.CONCEPT);
   const [course, setCourse] = useState(Course.MATH203);
   const [detailLevel, setDetailLevel] = useState(DetailLevel.DETAILED);
-  const [conversation, setMessages] = useState<Message[]>([]);
+  const [conversation, setConversation] = useState<Message[]>([]);
   const [chatLoaded, setChatLoaded] = useState<boolean>(false);
 
   const addMessage = (message: Message) => {
-    setMessages((prevMessages) => [...prevMessages, message])
+    setConversation((prevMessages) => [...prevMessages, message])
   }
 
   return (
@@ -45,6 +46,7 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
       detailLevel,
       setDetailLevel,
       conversation,
+      setConversation,
       addMessage,
       chatLoaded,
       setChatLoaded
