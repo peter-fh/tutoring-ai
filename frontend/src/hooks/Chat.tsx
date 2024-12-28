@@ -248,29 +248,47 @@ function Chat() {
     fileInputRef!.current!.click()
   }
 
-const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const img = event.target.files?.[0];
     if (img) {
-      setFile(img.name)
-      const options = {
-        maxSizeMB: 0.1,
-        maxWidthOrHeight: 800,
-        useWebWorker: true,
-      }
-
-      const compressedFile = await imageCompression(img, options);
-      console.log(`Transcribing ${compressedFile.size / 1024 / 1024}MB file`);
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImage(reader!.result!.toString())
-      }
-      reader.readAsDataURL(compressedFile)
+      updateImage(img)
     }
   };
 
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const img = event.dataTransfer.files?.[0]
+    if (img) {
+      const allowedFiles = [".png",".jpg",".jpeg",".gif"]
+      for (const filetype of allowedFiles) {
+        if (img.name.endsWith(filetype)) {
+          updateImage(img)
+        }
+      }
+    }
+  }
+
+  const updateImage = async (img: File) => {
+    setFile(img.name)
+    const options = {
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
+    }
+
+    const compressedFile = await imageCompression(img, options);
+    console.log(`Transcribing ${compressedFile.size / 1024 / 1024}MB file`);
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setImage(reader!.result!.toString())
+    }
+    reader.readAsDataURL(compressedFile)
+  }
+
+
   return (
     <>
-      <div className="chat">
+      <div className="chat"onDrop={handleDrop}>
         <h1 className="title">MAT AI Assistant</h1>
         <div className="messages">
           {messages && messages.map((message, index) => (
