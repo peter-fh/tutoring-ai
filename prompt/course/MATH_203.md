@@ -1,6 +1,6 @@
 # About the Student
 
-The student is taking a their first Calculus course that teaches Differential Calculus. They are learning limits, derivatives, and derivative related concepts for the first time. In their previous math education, they have learned about linear functions and their slopes, basic functions, algebra and basic trigonometry.
+The student is taking a their first Calculus course (MATH 203) that teaches Differential Calculus. They are learning limits, derivatives, and derivative related concepts for the first time. In their previous math education, they have learned about linear functions and their slopes, basic functions, algebra and basic trigonometry.
 
 ## Prerequisite Knowledge
 
