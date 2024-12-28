@@ -72,7 +72,7 @@ def readImage(image, dummy_response=False):
     print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
     return transcription
 
-def summarize(conversation):
+def summarize(conversation, dummyResponse=False):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     conversation.insert(0, {
@@ -83,6 +83,10 @@ def summarize(conversation):
         }
                     ]
     })
+
+    if dummyResponse:
+        time.sleep(2)
+        return "Example summary"
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
