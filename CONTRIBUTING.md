@@ -56,9 +56,11 @@ If you want to interact with the OpenAI API locally, you must obtain an api key 
 
 ## Developing
 
-### Full stack
+When in development mode, the frontend and backend run on different localhost ports. Both servers must be running to test the application.
 
-If you need to interact with the API, i.e. send and receive example or real messages, the project must be built by running the python server (note that the python virtual environment must be active):
+### Server
+
+To run the server, run:
 
 ```bash
 python server.py
@@ -70,21 +72,13 @@ Debug mode will send the same example response from ChatGPT every time regardles
 python server.py --debug
 ```
 
-For any changes made to the UI to be represented in this mode, the react project must be rebuilt:
-```bash
-cd frontend
-npm run build
-```
 
-### UI Only
+### Frontend
 
-If you are only making changes to the UI, run these commands and keep the terminal window open:
+To run the frontend server, run:
 
 ```bash
 cd frontend
 npm run dev
 ```
-
-Note that API requests will not work in this mode. 
-
 

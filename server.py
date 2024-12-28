@@ -1,12 +1,20 @@
 from flask import Flask, request, send_from_directory, stream_with_context, Response
 from api.openai_api import ask, readImage, introductionGenerator, summarize
 from prompt.prompt_manager import prompt, PromptType
+from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 import sys
 
 use_example_responses = False
+load_dotenv(override=True)
+dev = os.getenv("FLASK_ENV") == "development"
+
 # Initialize the server library
 app = Flask(__name__, static_folder="frontend/dist")
+if dev:
+    CORS(app)
+
 @app.route('/icon.png')
 def icon():
     if not app.static_folder:
@@ -34,7 +42,7 @@ def summary():
         return "Invalid request type", 400
 
     conversation = request.get_json()
-    return summarize(conversation)
+    return summarize(conversation, dummyResponse=use_example_responses)
 
 @app.route("/assets/<path:path>")
 def serve_assets(path):
@@ -97,7 +105,7 @@ def question():
 
 
 # Run the server if this file is run
-port = 8070
+port = 8080
 if __name__ == '__main__':
     print("\n\n\n")
     print("=" * 70)
@@ -106,5 +114,5 @@ if __name__ == '__main__':
     print("=" * 70)
     if len(sys.argv) > 1 and sys.argv[1] == "--debug":
         use_example_responses=True
-    app.run(port=8070, debug=True)
+    app.run(port=port, debug=True)
 
