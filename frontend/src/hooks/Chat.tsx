@@ -307,7 +307,7 @@ const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
               className="button" 
               onClick={handleSendMessage}
             >
-              <i className="fa-solid fa-arrow-up"/>
+              {lock ? <i className="fa-solid fa-xmark"/>:<i className="fa-solid fa-arrow-up"/>}
             </button>
             <button 
               className="button" 

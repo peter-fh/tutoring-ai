@@ -105,7 +105,7 @@ def question():
 
 
 # Run the server if this file is run
-port = 8080
+port = 8070
 if __name__ == '__main__':
     print("\n\n\n")
     print("=" * 70)
