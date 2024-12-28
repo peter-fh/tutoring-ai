@@ -191,12 +191,12 @@ const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFile(img.name)
       const options = {
         maxSizeMB: 0.1,
-        maxWidthOrHeight: 500,
+        maxWidthOrHeight: 800,
         useWebWorker: true,
       }
 
       const compressedFile = await imageCompression(img, options);
-      console.log(`Transcribing ${compressedFile.size / 1024}KB file`);
+      console.log(`Transcribing ${compressedFile.size / 1024 / 1024}MB file`);
       const reader = new FileReader()
       reader.onloadend = () => {
         setImage(reader!.result!.toString())

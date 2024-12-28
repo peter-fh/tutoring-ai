@@ -69,6 +69,7 @@ def readImage(image, dummy_response=False):
     )   
 
     print(response.choices[0].message.content)
+    print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
     return str(response.choices[0].message.content)
 
 
