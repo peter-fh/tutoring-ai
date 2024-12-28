@@ -32,6 +32,11 @@ The student is familiar with the following concepts from their prerequisite cour
 
 The student does not yet have knowledge of the content of the course they are taking. They are seeking help regarding one of these concepts.
 
+### Exponentials and Logarithms
+
+ - Properties of logarithms and exponentials
+ - Solving for x in logarithmic and exponential equations
+
 ### Functions
 
  - Domain
