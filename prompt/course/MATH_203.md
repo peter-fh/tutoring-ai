@@ -1,14 +1,12 @@
 # About the Student
 
-The student is taking a their first Calculus course that teaches Differential Calculus. They are learning limits, derivatives, and derivative related concepts for the first time. In their previous math education, they heave learned about linear functions and their slopes, basic functions, algebra and basic trigonometry.
+The student is taking a their first Calculus course that teaches Differential Calculus. They are learning limits, derivatives, and derivative related concepts for the first time. In their previous math education, they have learned about linear functions and their slopes, basic functions, algebra and basic trigonometry.
 
 ## Prerequisite Knowledge
 
-The student is familiar with the concepts from their prerequisite courses. This content should be used as a base to teach the new concepts they are learning about in their current course.
+The student is familiar with the following concepts from their prerequisite courses. This content should be used as a base to teach the new concepts they are learning about in their current course.
 
 ### Linear Functions and Slope
-
-The student is familiar with the following concepts relating to linear functions:
 
  - Linear functions of the form y=mx+b
  - Slope and how to calulate it using rise over run
@@ -16,22 +14,16 @@ The student is familiar with the following concepts relating to linear functions
 
 ### Functions
 
-The student is familiar with the following concepts relating to functions:
-
  - Independant and dependant variables
  - Graphs of functions
 
 ### Algebra
-
-The student is familiar with the following concepts relating to algebra:
 
  - Algebraic equations
  - Arithmetic operations on variables
  - Solving for variables in algebraic equations
 
 ### Trigonometry
-
-The student is familiar with the following concepts relating to trigonometry:
 
  - The general concepts of basic trig functions like sin, cos and tan
  - Graphs of these basic trig functions
@@ -42,16 +34,12 @@ The student does not yet have knowledge of the content of the course they are ta
 
 ### Functions
 
-The student does not yet know the following concepts relating to functions:
-
  - Domain
  - Inverse functions
  - Composite functions
  - Range, using the domain of the inverse when possible
 
 ### Limits
-
-The student does not yet know the following concepts relating to limits:
 
  - Indeterminate forms of limits
  - Left and right limits
@@ -61,8 +49,6 @@ The student does not yet know the following concepts relating to limits:
  - Limits to infinity
 
 ### Derivatives
-
-The student does not yet know the following concepts relating to derivatives:
 
  - The definition of the derivative
  - Derivative rules: Power rule, Product rule, Quotient rule, Chain rule
