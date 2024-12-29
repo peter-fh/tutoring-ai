@@ -327,7 +327,7 @@ function Chat() {
             <button 
               className="button" 
               onClick={handleFileButtonClick}
-              style={{backgroundColor: image !== "" ? "#114444" : "#1d1d1d"}}
+              style={{backgroundColor: file !== "" ? "#114444" : "#1d1d1d"}}
             >
               <i className="fa-solid fa-paperclip"/>
             </button>
