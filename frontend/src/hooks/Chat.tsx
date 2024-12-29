@@ -33,7 +33,6 @@ function Chat() {
       method: 'GET'
     })
 
-
     const start_time = performance.now()
     const response = await fetch(request)
     const reader = response.body!.getReader()
@@ -148,38 +147,32 @@ function Chat() {
         current_message += `\n\n*[uploaded ${fileName}]*`
       }
 
-      var json_message: any = newMessage(message, "user")
-      const fullConversation = [...conversation, json_message]
 
       setMessages([...messages!, current_message])
       setMessage("")
 
-      var image_transcription = ""
+      var final_message = message
+
       if (image) {
         setAiMessage("*Transcribing Image...*")
-        image_transcription = await readImage(image)
-        fullConversation.push(newMessage(image_transcription, 'user'))
+        const image_transcription = await readImage(image)
+        final_message = "Label for image:\n\n" + final_message + "\n\n" + image_transcription
         setAiMessage("")
       }
+
+      console.log(final_message)
+      var json_message: any = newMessage(final_message, "user")
+      const fullConversation = [...conversation, json_message]
 
       const aiMessagePromise = ask(fullConversation)
       const aiMessage = await aiMessagePromise
 
       setMessages([...messages!, current_message, aiMessage])
-      if (image) {
-        setConversation([
-          ...conversation, 
-          newMessage(message, 'user'), 
-          newMessage(image_transcription, 'user'),
-          newMessage(aiMessage, 'assistant'),
-        ])
-      } else {
-        setConversation([
-          ...conversation, 
-          newMessage(message, 'user'), 
-          newMessage(aiMessage, 'assistant'),
-        ])
-      }
+      setConversation([
+        ...conversation, 
+        newMessage(message, 'user'), 
+        newMessage(aiMessage, 'assistant'),
+      ])
 
       setImage('')
 
@@ -318,6 +311,7 @@ function Chat() {
             ref={fileInputRef}
             style={{ display: "none" }}
             accept=".png,.jpg,.jpeg,.gif"
+            key={image}
             onChange={handleFileChange}
             />
           <div className="button-container">
