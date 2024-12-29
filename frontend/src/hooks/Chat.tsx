@@ -25,6 +25,7 @@ function Chat() {
   const [lock, setLock] = useState(false)
   const [file, setFile] = useState('')
   const [image, setImage] = useState('')
+  const [transcription, setTranscription] = useState('')
   const [toSummarize, setToSummarize] = useState(false)
 
   async function intro() {
@@ -152,17 +153,20 @@ function Chat() {
       setMessage("")
 
       var final_message = message
+      var json_message: any = newMessage(final_message, "user")
+      const fullConversation = [...conversation, json_message]
 
       if (image) {
         setAiMessage("*Transcribing Image...*")
-        const image_transcription = await readImage(image)
-        final_message = "Label for image:\n\n" + final_message + "\n\n" + image_transcription
+        const new_transcription = await readImage(image)
+        fullConversation.splice(0, 0, newMessage(new_transcription, 'system'))
+        setTranscription(new_transcription)
         setAiMessage("")
+      } else if (transcription) {
+        fullConversation.splice(0, 0, newMessage(transcription, 'system'))
       }
 
       console.log(final_message)
-      var json_message: any = newMessage(final_message, "user")
-      const fullConversation = [...conversation, json_message]
 
       const aiMessagePromise = ask(fullConversation)
       const aiMessage = await aiMessagePromise
@@ -175,7 +179,6 @@ function Chat() {
       ])
 
       setImage('')
-
       setLock(false)
     } else if (!lock) {
       setMessage("")
@@ -324,7 +327,7 @@ function Chat() {
             <button 
               className="button" 
               onClick={handleFileButtonClick}
-              style={{backgroundColor: file !== "" ? "#114444" : "#1d1d1d"}}
+              style={{backgroundColor: image !== "" ? "#114444" : "#1d1d1d"}}
             >
               <i className="fa-solid fa-paperclip"/>
             </button>
