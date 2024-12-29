@@ -1,5 +1,5 @@
 from flask import Flask, request, send_from_directory, stream_with_context, Response
-from api.openai_api import GPT
+from api.gpt import GPT
 from prompt.prompt_manager import prompt, PromptType
 from dotenv import load_dotenv
 from flask_cors import CORS
@@ -132,6 +132,6 @@ if __name__ == '__main__':
     print("=" * 70)
     if len(sys.argv) > 1 and sys.argv[1] == "--debug":
         use_example_responses=True
-    app.run(port=port, debug=True)
     gpt.debug = use_example_responses
+    app.run(port=port, debug=True)
 

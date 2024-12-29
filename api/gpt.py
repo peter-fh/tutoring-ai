@@ -16,9 +16,6 @@ class GPT:
         load_dotenv(override=True)
         self.client = OpenAI(api_key=api_key)
 
-    def setDebug(self, debug: bool):
-        self.debug = debug
-
     def transcribe(self, image):
 
         if self.debug:
@@ -103,7 +100,6 @@ class GPT:
                         time.sleep(0.02)
                         yield word + " "
             return
-
 
         temperature = 0.7
         if prompt_type == PromptType.PROBLEM:
