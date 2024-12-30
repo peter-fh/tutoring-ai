@@ -3,10 +3,20 @@ import { useGlobalState } from '../GlobalState'
 import './Sidebar.css'
 
 function NewConversationButton() {
+  const { setSave } = useGlobalState()
   return (
-    <button onClick={ () => {
-      window.location.reload()
-    }} className="new-conversation-button">New Conversation</button>
+    <>
+      <button onClick={ () => {
+        window.location.reload()
+      }} className="sidebar-button">
+        <i className="fa-solid fa-plus"/>
+      </button>
+      <button onClick={ () => {
+        setSave(true)
+      }} className="sidebar-button">
+        <i className="fa-solid fa-download"/>
+      </button>
+    </>
   )
 }
 
@@ -20,7 +30,7 @@ function CourseSelect() {
     <div className="option">
       <h3>Course</h3>
 
-      <select className="select-box" onChange={onChange} value={course}> 
+      <select className="interactive select-box" onChange={onChange} value={course}> 
         {Object.values(Course).map((option) => (
           <option key={option} value={option}>
             {option}
@@ -39,7 +49,7 @@ function QuestionTypeSelect() {
   return (
     <div className="option">
       <h3>Question Type</h3>
-      <select className="select-box" onChange={onChange} value={question}>
+      <select className="select-box interactive" onChange={onChange} value={question}>
         {Object.values(QuestionType).map((option) => (
           <option key={option} value={option}>
             {option}
@@ -58,7 +68,7 @@ function BrevitySelect() {
   return (
     <div className="option">
       <h3>Level of Detail</h3>
-      <select className="select-box" onChange={onChange} value={detailLevel}>
+      <select className="select-box interactive" onChange={onChange} value={detailLevel}>
         {Object.values(DetailLevel).map((option) => (
           <option key={option} value={option}>
             {option}

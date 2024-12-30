@@ -10,6 +10,8 @@
 
 .messages {
 	width: 50em;
+	padding: 0em 1em 0em 1em;
+	background-color: #222222;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -42,7 +44,7 @@
 	display: flex;
 	position: fixed;
 	bottom: 0px;
-	height: 12%;
+	height: 5%;
 	width: 50em;
 	border-style: solid;
 	border-color: #555555;
@@ -69,31 +71,27 @@
 .button-container {
 	float: right;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
+	align-items: center;
+
 }
 
 .button{
 	border: solid;
-	border-color: #505050;
+	border-color: #222222;
 	border-radius: 15px;
-	background-color: #1d1d1d;
-	height: 3em;
-	width: 2.9em;
+	background-color: #222222;
+	margin: 0 5px 0 5px;
+	height: 50px;
+	width: 50px;
 	color: white;
-	font-size: 1em;
-	padding: 0em 0em 0em 0em;
-	margin: 2px 2px 2px 2px;
-}
-.button:hover {
-	border-color: white;
-	background-color: #303030;
+	font-size: 25px;
 }
 
-.button:active {
-	background-color: white;
+.file-present {
+	background-color: #114444;
 }
-
 
 .chat-background {
 	display: flex;
@@ -101,7 +99,7 @@
 	position: fixed;
 	bottom: 0;
 	padding: 1em 1em 2em 1em;
-	height: 5%;
+	height: 1%;
 	width: 100vw;
 	z-index: 9;
 }

@@ -4,6 +4,7 @@ import { useGlobalState } from '../GlobalState'
 import { Message, newMessage } from '../types/message'
 import MarkTeX from './MarkTeX'
 import imageCompression from 'browser-image-compression'
+import html2canvas from 'html2canvas'
 
 const APIEndpoint = '/question'
 const IntroEndpoint = '/introduction'
@@ -17,6 +18,8 @@ function Chat() {
     conversation, 
     setConversation,
     chatLoaded,
+    save,
+    setSave,
   } = useGlobalState()
   const [message, setMessage] = useState('')
   const {question, course, detailLevel} = useGlobalState()
@@ -186,7 +189,7 @@ function Chat() {
   }
 
   const enterListener = (e: KeyboardEvent) => {
-    if (e.key == "Enter") {
+    if (e.key == "Enter" && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
@@ -214,6 +217,7 @@ function Chat() {
 
 
   async function summarize() {
+    setLock(true)
     setToSummarize(false)
     if (conversation.length < 2) {
       return
@@ -233,7 +237,6 @@ function Chat() {
     console.log("Summarizing")
 
     
-    setLock(true)
     setConversation([newMessage(await getSummary(conversation.slice(0, -2)), 'system'), conversation[conversation.length - 2], conversation[conversation.length - 1]])
     setLock(false)
   }
@@ -281,20 +284,43 @@ function Chat() {
     reader.readAsDataURL(compressedFile)
   }
 
+  const buttonClass = file !== "" ? "button interactive file-present" : "button interactive"
+
+  const messagesRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (save) {
+      saveAsPdf()
+    }
+  }, [save])
+
+  const saveAsPdf = async () => {
+    if (messagesRef.current) {
+      const canvas = await html2canvas(messagesRef.current);
+      setSave(false)
+      const imgData = canvas.toDataURL('image/png');
+
+      // Create a link element to download the image
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'AI Math Tutor Conversation.png'; // File name for the downloaded image
+      link.click();
+    }
+  }
 
   return (
     <>
-      <div className="chat"onDrop={handleDrop}>
+      <div className="chat" onDrop={handleDrop}>
         <h1 className="title">MAT AI Assistant</h1>
-        <div className="messages">
+        <div className="messages" ref={messagesRef}>
           {messages && messages.map((message, index) => (
             <span key={index}className={index % 2 == 1 ? "question" : "output"}>
-              <MarkTeX content={message}/>
+              <MarkTeX content={message} isSaved={save}/>
             </span>
           ))}
           {aiMessage != '' && (
             <span key={-1}className="output">
-              <MarkTeX content={aiMessage}/>
+              <MarkTeX content={aiMessage} isSaved={save}/>
             </span>
           )}
         </div>
@@ -319,17 +345,16 @@ function Chat() {
             />
           <div className="button-container">
             <button 
-              className="button" 
+              className={buttonClass}
+              onClick={handleFileButtonClick}
+            >
+              <i className="fa-solid fa-paperclip"/>
+            </button>
+            <button 
+              className="button interactive" 
               onClick={handleSendMessage}
             >
               {lock ? <i className="fa-solid fa-xmark"/>:<i className="fa-solid fa-arrow-up"/>}
-            </button>
-            <button 
-              className="button" 
-              onClick={handleFileButtonClick}
-              style={{backgroundColor: file !== "" ? "#114444" : "#1d1d1d"}}
-            >
-              <i className="fa-solid fa-paperclip"/>
             </button>
           </div>
         </div>

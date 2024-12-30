@@ -1,0 +1,20 @@
+.interactive:hover {
+	border-color: white;
+	background-color: #114444;
+}
+
+.interactive:active {
+	background-color: white;
+}
+
+.select-box{
+	background-color: #1d1d1d;
+	color: white;
+	border-radius: 5px;
+	font-size: 15px;
+	border-color: #1d1d1d;
+	padding: 5px 5px;
+	text-align-last: center;
+	font-family: "proximanova";
+
+}
