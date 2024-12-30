@@ -1,22 +1,24 @@
 .chat {
-	width: 50%;
-	margin-right: 0;
-	margin-left: 38%;
+	width: 60vw;
+	margin-left: 15em;
 	padding: 0 0 0 0;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	flex-direction: column;
 }
 
 .messages {
-	width: 50em;
+	width: 100%;
 	padding: 0em 1em 0em 1em;
 	background-color: #222222;
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	margin-top: 70px;
 	flex-direction: column;
 	text-align: right;
-	margin-bottom: 20vh;
+	margin-bottom: 10vh;
 }
 
 .output {
@@ -45,7 +47,7 @@
 	position: fixed;
 	bottom: 0px;
 	height: 5%;
-	width: 50em;
+	width: 60vw;
 	border-style: solid;
 	border-color: #555555;
 	background-color: #222222;

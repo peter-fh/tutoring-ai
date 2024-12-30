@@ -18,3 +18,9 @@
 	font-family: "proximanova";
 
 }
+
+.button {
+	padding: 10px 12px 10px 12px;
+	border: solid;
+	border-radius: 15px;
+}
