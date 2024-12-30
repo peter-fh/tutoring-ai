@@ -2,7 +2,7 @@ import { Course, DetailLevel, QuestionType } from '../types/options'
 import { useGlobalState } from '../GlobalState'
 import './Sidebar.css'
 
-function NewConversationButton() {
+function Buttons() {
   const { setSave } = useGlobalState()
   return (
     <>
@@ -92,8 +92,7 @@ function Sidebar() {
     <>
       <div className="sidebar">
         <div className="options">
-          <h2>Controls</h2>
-          <NewConversationButton/>
+          <Buttons/>
           <CourseSelect/>
           <QuestionTypeSelect/>
           <BrevitySelect/>

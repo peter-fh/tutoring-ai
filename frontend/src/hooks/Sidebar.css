@@ -25,11 +25,11 @@
 
 .sidebar-button{
 	border: solid;
-	border-color: #505050;
+	border-color: #707070;
 	border-radius: 15px;
 	background-color: #1d1d1d;
 	padding: 10px 12px 10px 12px;
-	margin: 0.5em 5px 0em 5px;
+	margin: 0.5em 5px 0.5em 5px;
 	color: white;
 	font-size: 20px;
 }
