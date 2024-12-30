@@ -1,21 +1,78 @@
 import { Course, DetailLevel, QuestionType } from '../types/options'
 import { useGlobalState } from '../GlobalState'
 import './Sidebar.css'
+import { useEffect } from 'react'
 
+function NewConversationButton() {
+  return (
+        <button onClick={ () => {
+          window.location.reload()
+        }} className="interactive sidebar-button">
+          <i className="fa-solid fa-plus"/>
+        </button>
+    )
+}
+
+function SaveButton() {
+  const { setSave } = useGlobalState();
+  return (
+        <button onClick={ () => {
+          setSave(true)
+        }} className="interactive sidebar-button">
+          <i className="fa-solid fa-download"/>
+        </button>
+    )
+}
+
+function SidebarButton() {
+  const {
+    sidebar,
+    setSidebar,
+    smallScreen,
+  } = useGlobalState()
+  return (
+        <button onClick={ () => {
+          if (sidebar) {
+            setSidebar(false)
+          } else if (!smallScreen) {
+            setSidebar(true)
+          }
+        }} className="interactive sidebar-button">
+      {sidebar ? 
+          <i className="fa-solid fa-bars-staggered"></i>
+          :
+          <i className="fa-solid fa-bars"></i>
+      }
+        </button>
+    )
+}
+
+function InvisibleButton() {
+  return (
+    <button className="invisible-button">
+      <i className="fa-solid fa-download"/>
+    </button>
+  )
+}
 function Buttons() {
-  const { setSave } = useGlobalState()
+  const { sidebar } = useGlobalState();
   return (
     <>
-      <button onClick={ () => {
-        window.location.reload()
-      }} className="sidebar-button">
-        <i className="fa-solid fa-plus"/>
-      </button>
-      <button onClick={ () => {
-        setSave(true)
-      }} className="sidebar-button">
-        <i className="fa-solid fa-download"/>
-      </button>
+      <div className="sidebar-buttons">
+        { sidebar ? 
+          <>
+            <SidebarButton/>
+            <SaveButton/>
+            <NewConversationButton/> 
+          </>
+          : 
+          <>
+            <SidebarButton/>
+            <InvisibleButton/>
+            <InvisibleButton/>
+          </>
+        }
+      </div>
     </>
   )
 }
@@ -87,18 +144,46 @@ function Attribution() {
 }
 
 function Sidebar() {
+  const { sidebar, setSidebar, smallScreen, setSmallScreen } = useGlobalState()
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 800) {
+        setSmallScreen(true); 
+        setSidebar(false)
+      } else {
+        if (smallScreen) {
+          setSidebar(true)
+        }
+        setSmallScreen(false)
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [smallScreen]);
 
   return (
     <>
-      <div className="sidebar">
-        <div className="options">
+      { (sidebar) ?
+        <div className="sidebar">
           <Buttons/>
-          <CourseSelect/>
-          <QuestionTypeSelect/>
-          <BrevitySelect/>
+          <div className="options">
+            <CourseSelect/>
+            <QuestionTypeSelect/>
+            <BrevitySelect/>
+          </div>
+          <Attribution/>
         </div>
-        <Attribution/>
-      </div>
+        : 
+        <div className="hidden-sidebar">
+          <Buttons/>
+        </div>
+      }
     </>
   )
 }

@@ -16,6 +16,10 @@ type GlobalState = {
   setChatLoaded: (value: boolean) => void;
   save: boolean;
   setSave: (value: boolean) => void;
+  sidebar: boolean;
+  setSidebar: (value: boolean) => void;
+  smallScreen: boolean;
+  setSmallScreen: (value: boolean) => void;
 };
 
 const GlobalStateContext = createContext<GlobalState | undefined>(undefined);
@@ -35,6 +39,8 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [conversation, setConversation] = useState<Message[]>([]);
   const [chatLoaded, setChatLoaded] = useState<boolean>(false);
   const [save, setSave] = useState<boolean>(false);
+  const [sidebar, setSidebar] = useState<boolean>(true);
+  const [smallScreen, setSmallScreen] = useState<boolean>(true);
 
   const addMessage = (message: Message) => {
     setConversation((prevMessages) => [...prevMessages, message])
@@ -55,6 +61,10 @@ export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
       setChatLoaded,
       save,
       setSave,
+      sidebar,
+      setSidebar,
+      smallScreen,
+      setSmallScreen,
     }}>
       {children}
     </GlobalStateContext.Provider>

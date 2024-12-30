@@ -20,6 +20,7 @@ function Chat() {
     chatLoaded,
     save,
     setSave,
+    sidebar,
   } = useGlobalState()
   const [message, setMessage] = useState('')
   const {question, course, detailLevel} = useGlobalState()
@@ -308,8 +309,9 @@ function Chat() {
 
   return (
     <>
-      <div className="chat" onDrop={handleDrop}>
-        <h1 className="title">MAT AI Assistant</h1>
+      <div className="chat" onDrop={handleDrop} style={{
+        marginLeft: sidebar ? '15em' : 0
+      }}>
         <div className="messages" ref={messagesRef}>
           {messages && messages.map((message, index) => (
             <span key={index}className={index % 2 == 1 ? "question" : "output"}>
@@ -340,7 +342,7 @@ function Chat() {
             accept=".png,.jpg,.jpeg,.gif"
             key={image}
             onChange={handleFileChange}
-            />
+          />
           <div className="button-container">
             <button 
               className={buttonClass}
