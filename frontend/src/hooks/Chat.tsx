@@ -186,7 +186,7 @@ function Chat() {
   }
 
   const enterListener = (e: KeyboardEvent) => {
-    if (e.key == "Enter") {
+    if (e.key == "Enter" && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
@@ -214,6 +214,7 @@ function Chat() {
 
 
   async function summarize() {
+    setLock(true)
     setToSummarize(false)
     if (conversation.length < 2) {
       return
@@ -233,7 +234,6 @@ function Chat() {
     console.log("Summarizing")
 
     
-    setLock(true)
     setConversation([newMessage(await getSummary(conversation.slice(0, -2)), 'system'), conversation[conversation.length - 2], conversation[conversation.length - 1]])
     setLock(false)
   }
@@ -281,6 +281,7 @@ function Chat() {
     reader.readAsDataURL(compressedFile)
   }
 
+  const buttonClass = file !== "" ? "button interactive file-present" : "button interactive"
 
   return (
     <>
@@ -319,17 +320,16 @@ function Chat() {
             />
           <div className="button-container">
             <button 
-              className="button" 
+              className={buttonClass}
+              onClick={handleFileButtonClick}
+            >
+              <i className="fa-solid fa-paperclip"/>
+            </button>
+            <button 
+              className="button interactive" 
               onClick={handleSendMessage}
             >
               {lock ? <i className="fa-solid fa-xmark"/>:<i className="fa-solid fa-arrow-up"/>}
-            </button>
-            <button 
-              className="button" 
-              onClick={handleFileButtonClick}
-              style={{backgroundColor: file !== "" ? "#114444" : "#1d1d1d"}}
-            >
-              <i className="fa-solid fa-paperclip"/>
             </button>
           </div>
         </div>

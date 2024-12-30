@@ -23,21 +23,26 @@
 	color: inherit;
 }
 
-.new-conversation-button{
+.sidebar-button{
 	border: solid;
 	border-color: #505050;
-	border-radius: 5px;
+	border-radius: 15px;
 	background-color: #1d1d1d;
-	padding: 0em 1em 0em 1em;
-	margin: 1em 0em 0em 0em;
-	height: 3em;
+	padding: 10px 12px 10px 12px;
+	margin: 0.5em 5px 0em 5px;
 	color: white;
+	font-size: 20px;
 }
 
-.new-conversation-button:hover {
+.sidebar-button:hover {
 	border-color: white;
-	background-color: #303030;
+	background-color: #114444;
 }
-.new-conversation-button:active {
+.sidebar-button:active {
 	background-color: white;
+}
+
+.option {
+	margin-bottom: 30px;
+	margin-top: 30px;
 }
