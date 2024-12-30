@@ -3,26 +3,34 @@ import { useGlobalState } from '../GlobalState'
 import './Sidebar.css'
 import { useEffect } from 'react'
 
-function Buttons() {
-  const {
-    setSave,
-    sidebar,
-    setSidebar,
-    smallScreen,
-  } = useGlobalState()
+function NewConversationButton() {
   return (
-    <>
-      <div className="sidebar-buttons">
         <button onClick={ () => {
           window.location.reload()
         }} className="interactive sidebar-button">
           <i className="fa-solid fa-plus"/>
         </button>
+    )
+}
+
+function SaveButton() {
+  const { setSave } = useGlobalState();
+  return (
         <button onClick={ () => {
           setSave(true)
         }} className="interactive sidebar-button">
           <i className="fa-solid fa-download"/>
         </button>
+    )
+}
+
+function SidebarButton() {
+  const {
+    sidebar,
+    setSidebar,
+    smallScreen,
+  } = useGlobalState()
+  return (
         <button onClick={ () => {
           if (sidebar) {
             setSidebar(false)
@@ -32,6 +40,34 @@ function Buttons() {
         }} className="interactive sidebar-button">
           <i className="fa-solid fa-bars"></i>
         </button>
+    )
+}
+
+function InvisibleButton() {
+  return (
+    <button className="invisible-button">
+      <i className="fa-solid fa-download"/>
+    </button>
+  )
+}
+function Buttons() {
+  const { sidebar } = useGlobalState();
+  return (
+    <>
+      <div className="sidebar-buttons">
+        { sidebar ? 
+          <>
+            <SidebarButton/>
+            <SaveButton/>
+            <NewConversationButton/> 
+          </>
+          : 
+          <>
+            <SidebarButton/>
+            <InvisibleButton/>
+            <InvisibleButton/>
+          </>
+        }
       </div>
     </>
   )

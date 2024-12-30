@@ -60,6 +60,16 @@
 	font-size: 20px;
 }
 
+.invisible-button{
+	background-color: #222222;
+	border-color: #222222;
+	color: #222222;
+	border: solid;
+	padding: 9px 12px 9px 12px;
+	margin: 0.5em 5px 0 5px;
+	font-size: 20px;
+}
+
 .sidebar-button:hover {
 	border-color: white;
 }
