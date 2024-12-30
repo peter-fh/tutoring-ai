@@ -130,7 +130,7 @@ if __name__ == '__main__':
     print(f'{"=    Enter the following url into the browser:":<69}=')
     print(f'{"=    http://127.0.0.1:" + str(port):<69}=')
     print("=" * 70)
-    if len(sys.argv) > 1 and sys.argv[1] == "--debug":
+    if len(sys.argv) > 1 and sys.argv[1] == "--no-api":
         use_example_responses=True
     gpt.debug = use_example_responses
     app.run(port=port, debug=True)

@@ -66,10 +66,10 @@ To run the server, run:
 python server.py
 ```
 
-Debug mode will send the same example response from ChatGPT every time regardless of the input. Use this if you did not get an OpenAI API key or do not need to interact directly with their API:
+No-API mode will send the same example response from ChatGPT every time regardless of the input. Use this if you did not get an OpenAI API key or do not need to interact directly with their API:
 
 ```bash
-python server.py --debug
+python server.py --no-api
 ```
 
 
