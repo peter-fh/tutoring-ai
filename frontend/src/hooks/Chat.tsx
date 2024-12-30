@@ -169,8 +169,6 @@ function Chat() {
         fullConversation.splice(0, 0, newMessage(transcription, 'system'))
       }
 
-      console.log(final_message)
-
       const aiMessagePromise = ask(fullConversation)
       const aiMessage = await aiMessagePromise
 
@@ -217,7 +215,6 @@ function Chat() {
 
 
   async function summarize() {
-    setLock(true)
     setToSummarize(false)
     if (conversation.length < 2) {
       return
@@ -234,9 +231,10 @@ function Chat() {
     if (conversation[conversation.length - 1].role != 'assistant') {
       return
     }
+
     console.log("Summarizing")
 
-    
+    setLock(true)
     setConversation([newMessage(await getSummary(conversation.slice(0, -2)), 'system'), conversation[conversation.length - 2], conversation[conversation.length - 1]])
     setLock(false)
   }
