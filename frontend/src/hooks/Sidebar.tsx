@@ -55,7 +55,7 @@ function InvisibleButton() {
   )
 }
 function Buttons() {
-  const { sidebar } = useGlobalState();
+  const { sidebar, smallScreen } = useGlobalState();
   return (
     <>
       <div className="sidebar-buttons">
@@ -65,12 +65,13 @@ function Buttons() {
             <SaveButton/>
             <NewConversationButton/> 
           </>
-          : 
+          : !smallScreen ? 
           <>
             <SidebarButton/>
             <InvisibleButton/>
             <InvisibleButton/>
           </>
+          : undefined
         }
       </div>
     </>
@@ -147,7 +148,7 @@ function Sidebar() {
   const { sidebar, setSidebar, smallScreen, setSmallScreen } = useGlobalState()
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 800) {
+      if (window.innerWidth < 900) {
         setSmallScreen(true); 
         setSidebar(false)
       } else {
