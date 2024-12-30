@@ -4,9 +4,14 @@ import { marked } from "marked";
 
 interface MarkTeXProps {
   content: string
+  isSaved: boolean
 }
 
-const CustomLatex: React.FC<MarkTeXProps> = ({content}) => {
+interface LaTeXProps {
+  content: string
+}
+
+const CustomLatex: React.FC<LaTeXProps> = ({content}) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,15 +23,18 @@ const CustomLatex: React.FC<MarkTeXProps> = ({content}) => {
   )
 }
 
-const MarkTeX: React.FC<MarkTeXProps> = ({content}) => {
+const MarkTeX: React.FC<MarkTeXProps> = ({content, isSaved}) => {
 
   const parsedHTML = useMemo(() => {
-    const doubleEscapedContent =content.replace(/\\/g, '\\\\')
+    var doubleEscapedContent =content.replace(/\\/g, '\\\\')
+    if (isSaved) {
+      doubleEscapedContent =content.replace(/\\/g, '\\\\').replace(/\\\[/g, '\\\(').replace(/\\\]/g, '\\\)')
+    }
     const parsedContent = marked.parse(doubleEscapedContent, { async: false })
     const purifiedContent = DOMPurify.sanitize(parsedContent)
     return purifiedContent
 
-  }, [content]);
+  }, [content, isSaved]);
 
   return (
     <>
