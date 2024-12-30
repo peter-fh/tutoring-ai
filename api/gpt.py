@@ -20,7 +20,7 @@ class GPT:
 
         if self.debug:
             time.sleep(2)
-            return "x^2*e^x (example response)"
+            return "This conversation concerns an image sent by the user. It's transcription is as follows:\n\n" + "x^2*e^x (example response)"
 
         # Send the request to OpenAI API
         response = self.client.chat.completions.create(
@@ -44,7 +44,7 @@ class GPT:
         )   
 
         transcription = str(response.choices[0].message.content)
-        transcription = "The following is a transcription of an image:\n\n" + transcription
+        transcription = "This conversation concerns an image sent by the user. It's transcription is as follows:\n\n" + transcription
         if response.usage:
             print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
 
