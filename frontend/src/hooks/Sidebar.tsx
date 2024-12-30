@@ -38,7 +38,11 @@ function SidebarButton() {
             setSidebar(true)
           }
         }} className="interactive sidebar-button">
+      {sidebar ? 
+          <i className="fa-solid fa-bars-staggered"></i>
+          :
           <i className="fa-solid fa-bars"></i>
+      }
         </button>
     )
 }
