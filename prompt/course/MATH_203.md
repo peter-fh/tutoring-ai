@@ -52,6 +52,7 @@ The student does not yet have knowledge of the content of the course they are ta
  - Using the conjugate to solve limits
  - Using squeeze theorum to solve limits
  - Limits to infinity
+ - Horizontal and vertical asymptotes using limits
 
 ### Derivatives
 
@@ -76,5 +77,6 @@ The following are concepts and knowledge that the student shouldn't learn about,
 The following are some notes about the course that the student is taking:
 
  - Notation for derivative rules uses f and g instead of u and v
- - The student is heavily encouraged to check both the left and the right limits of a function when checking for horizontal asymptotes (positive and negative infinity)
+ - Lots of horizontal asymptotes have tricks where the left and right limits to infinity are different. Please be careful about these questions.
+ - The expression sqrt{x^2} should be treated as |x|, and if x \to -\infty then |x|=-x
 
