@@ -23,10 +23,10 @@ function Modal() {
     <>
 
       <p>hello</p>
-      <div id="CourseSelectModal" className="course-modal">
+      <div className="course-modal">
 	<div className="course-modal-content">
-	  <p>Select the course you are taking</p>
-	  <select name="course-select" id="modal-course-select" className="select-box" onChange={onChange}> 
+	  <p className="modal-text">Select the course you are taking</p>
+	  <select className="interactive select-box" onChange={onChange}> 
 	      {Object.values(Course).map((option) => (
 	      <option key={option} value={option}>
 	      {option}
@@ -35,7 +35,7 @@ function Modal() {
 	  </select>
 	  <button onClick={() => {
 		setShowFirst(false)
-	    }} id="modalCloseButton" className="modal-close-button">Done</button>
+	    }} className="interactive modal-close-button">Done</button>
 
 	</div>
       </div>
@@ -49,17 +49,17 @@ function Modal() {
     <>
       <div id="TypeSelectModal" className="type-modal">
 	<div className="type-modal-content">
-	  <p>What type of question do you have?</p>
+	  <p className="modal-text">What type of question do you have?</p>
 	  <button onClick={() => {
 	      setHideSecond(true)
 	      setChatLoaded(true)
 	      setQuestion(QuestionType.CONCEPT)
-	    }} id="modalCloseButton" className="modal-close-button">I have a question about a concept</button>
+	    }}className="interactive modal-close-button">I have a question about a concept</button>
 	  <button onClick={() => {
 	      setHideSecond(true)
 	      setChatLoaded(true)
 	      setQuestion(QuestionType.PROBLEM)
-	    }} id="modalCloseButton" className="modal-close-button">I have a question about a problem</button>
+	    }}className="interactive modal-close-button">I have a question about a problem</button>
 
 	</div>
       </div>

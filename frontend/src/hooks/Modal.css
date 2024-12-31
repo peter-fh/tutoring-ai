@@ -38,23 +38,16 @@
 	height: 100%;
 }
 
+.modal-text {
+}
+
 .modal-close-button{
 	border: solid;
 	border-color: #707070;
 	border-radius: 5px;
 	background-color: #1d1d1d;
-	margin: 1em 0em 0em 0em;
-	height: 2em;
+	margin: 0.5em 0em 0em 0em;
+	height: 2.5em;
 	color: white;
 }
-
-.modal-close-button:hover {
-	border-color: white;
-	background-color: #303030;
-}
-
-.modal-close-button:active {
-	background-color: white;
-}
-
 
