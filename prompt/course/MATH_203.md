@@ -45,8 +45,9 @@ The student does not know this content and is seeking help about one of them:
  - Implicit differentiation
  - Linearization
  - Related rates
- - Optimization
- - Concavity and critical points
+ - Optimization and critical 
+ - Concavity and inflection points
+ - Graphing using critical and inflection points
 
 ## Excluded Concepts
 
