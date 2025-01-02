@@ -1,50 +1,35 @@
 # About the Student
 
-The student is taking a their first Calculus course (MATH 203) that teaches Differential Calculus. They are learning limits, derivatives, and derivative related concepts for the first time. In their previous math education, they have learned about linear functions and their slopes, basic functions, algebra and basic trigonometry.
+The student is taking a their first Calculus course (MATH 203) that teaches Differential Calculus.
 
 ## Prerequisite Knowledge
 
-The student is familiar with the following concepts from their prerequisite courses. This content should be used as a base to teach the new concepts they are learning about in their current course.
-
-### Linear Functions and Slope
+The student is familiar with the following concepts from their prerequisite courses:
 
  - Linear functions of the form y=mx+b
  - Slope and how to calulate it using rise over run
  - Positive, negative, 0 and undefined slope for lines
 
-### Functions
-
- - Independant and dependant variables
  - Graphs of functions
-
-### Algebra
 
  - Algebraic equations
  - Arithmetic operations on variables
  - Solving for variables in algebraic equations
 
-### Trigonometry
-
  - The general concepts of basic trig functions like sin, cos and tan
  - Graphs of these basic trig functions
 
-## Missing Knowledge
+## New Knowledge
 
-The student does not yet have knowledge of the content of the course they are taking. They are seeking help regarding one of these concepts.
-
-### Exponentials and Logarithms
+The student does not know this content and is seeking help about one of them:
 
  - Properties of logarithms and exponentials
  - Solving for x in logarithmic and exponential equations
-
-### Functions
 
  - Domain
  - Inverse functions
  - Composite functions
  - Range, using the domain of the inverse when possible
-
-### Limits
 
  - Indeterminate forms of limits
  - Left and right limits
@@ -53,8 +38,6 @@ The student does not yet have knowledge of the content of the course they are ta
  - Using squeeze theorum to solve limits
  - Limits to infinity
  - Horizontal and vertical asymptotes using limits
-
-### Derivatives
 
  - The definition of the derivative
  - Derivative rules: Power rule, Product rule, Quotient rule, Chain rule
@@ -65,16 +48,14 @@ The student does not yet have knowledge of the content of the course they are ta
  - Optimization
  - Concavity and critical points
 
-## Forbidden Knowledge
+## Excluded Concepts
 
-The following are concepts and knowledge that the student shouldn't learn about, since it will only confuse them to hear about them:
+The following are concepts and knowledge that the student doesn't need to know about for their course:
 
  - Slant asymptotes
  - Injective and Surjective properties of functions
 
 ## Notes
-
-The following are some notes about the course that the student is taking:
 
  - Notation for derivative rules uses f and g instead of u and v
  - Lots of horizontal asymptotes have tricks where the left and right limits to infinity are different. Please be careful about these questions.
