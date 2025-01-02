@@ -269,8 +269,8 @@ function Chat() {
   const updateImage = async (img: File) => {
     setFile(img.name)
     const options = {
-      maxSizeMB: 0.5,
-      maxWidthOrHeight: 1200,
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 1000,
       useWebWorker: true,
     }
 
