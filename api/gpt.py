@@ -44,7 +44,7 @@ class GPT:
         )   
 
         transcription = str(response.choices[0].message.content)
-        transcription = "This conversation concerns an image sent by the user. It's transcription is as follows:\n\n" + transcription
+        transcription = "The following is a transcription of an image sent by the user:\n\n" + transcription
         if response.usage:
             print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
 

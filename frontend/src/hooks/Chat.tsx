@@ -29,7 +29,6 @@ function Chat() {
   const [lock, setLock] = useState(false)
   const [file, setFile] = useState('')
   const [image, setImage] = useState('')
-  const [transcription, setTranscription] = useState('')
   const [toSummarize, setToSummarize] = useState(false)
 
   async function intro() {
@@ -79,6 +78,7 @@ function Chat() {
 
     const transcription = decoder.decode(value, { stream: true})
 
+    console.log("Image transcription:\n", transcription)
     return transcription
   }
 
@@ -98,6 +98,8 @@ function Chat() {
     const {value} = await reader.read()
 
     const summary = decoder.decode(value, { stream: true})
+
+    console.log("Summarized conversation:\n", summary)
 
     return summary
   }
@@ -157,18 +159,16 @@ function Chat() {
       setMessage("")
 
       var final_message = message
-      var json_message: any = newMessage(final_message, "user")
-      const fullConversation = [...conversation, json_message]
 
       if (image) {
         setAiMessage("*Transcribing Image...*")
-        const new_transcription = await readImage(image)
-        fullConversation.splice(0, 0, newMessage(new_transcription, 'system'))
-        setTranscription(new_transcription)
+        const transcription = await readImage(image)
+        final_message += transcription
         setAiMessage("")
-      } else if (transcription) {
-        fullConversation.splice(0, 0, newMessage(transcription, 'system'))
-      }
+      } 
+
+      var json_message: any = newMessage(final_message, "user")
+      const fullConversation = [...conversation, json_message]
 
       const aiMessagePromise = ask(fullConversation)
       const aiMessage = await aiMessagePromise
@@ -176,7 +176,7 @@ function Chat() {
       setMessages([...messages!, current_message, aiMessage])
       setConversation([
         ...conversation, 
-        newMessage(message, 'user'), 
+        newMessage(final_message, 'user'), 
         newMessage(aiMessage, 'assistant'),
       ])
 
@@ -270,7 +270,7 @@ function Chat() {
     setFile(img.name)
     const options = {
       maxSizeMB: 0.1,
-      maxWidthOrHeight: 800,
+      maxWidthOrHeight: 1000,
       useWebWorker: true,
     }
 
