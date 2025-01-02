@@ -22,31 +22,35 @@ class GPT:
             time.sleep(2)
             return "This conversation concerns an image sent by the user. It's transcription is as follows:\n\n" + "x^2*e^x (example response)"
 
-        # Send the request to OpenAI API
-        response = self.client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": imagePrompt()},
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": image,
-                            }
-                        },
-                    ],
-                }
-            ],
-            temperature=0,
-            max_tokens=300
-        )   
+        try:
+            # Send the request to OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": imagePrompt()},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": image,
+                                }
+                            },
+                        ],
+                    }
+                ],
+                temperature=0,
+                max_tokens=300
+            )   
+        except:
+            return "There is supposed to be a transcription of an image, but there was a fatal error."
 
         transcription = str(response.choices[0].message.content)
         transcription = "The following is a transcription of an image sent by the user:\n\n" + transcription
         if response.usage:
             print(f"Tokens used by image transcriptions: {response.usage.total_tokens} (${response.usage.total_tokens  * 0.00000015})")
+
 
         return transcription
 
@@ -67,12 +71,15 @@ class GPT:
             time.sleep(2)
             return "Example summary"
 
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=conversation,
-            temperature=0,
-            max_tokens=300
-        )   
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=conversation,
+                temperature=0,
+                max_tokens=300
+            )   
+        except:
+            return "There is supposed to be a summary here, but a fatal error has occurred."
 
 
         summary = str(response.choices[0].message.content)
@@ -105,13 +112,17 @@ class GPT:
         if prompt_type == PromptType.PROBLEM:
             temperature = 0
 
-        # Send the request to OpenAI API
-        stream = client.chat.completions.create(
-            model="gpt-4o",
-            messages=conversation,
-            temperature=temperature,
-            stream=True,
-        )
+        try:
+            # Send the request to OpenAI API
+            stream = client.chat.completions.create(
+                model="gpt-4o",
+                messages=conversation,
+                temperature=temperature,
+                stream=True,
+            )
+        except:
+            yield "This service is currently unavailable, sorry!"
+            return
 
         # Extract the content of the returned message
         for chunk in stream:
