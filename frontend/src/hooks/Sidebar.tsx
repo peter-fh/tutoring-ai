@@ -5,20 +5,29 @@ import { useEffect } from 'react'
 
 function NewConversationButton() {
   return (
-        <button onClick={ () => {
-          window.location.reload()
-        }} className="interactive sidebar-button">
-          <i className="fa-solid fa-plus"/>
-        </button>
-    )
+      <button
+          title="New Chat"
+          className="interactive sidebar-button"
+          onClick={() => {
+              window.location.reload();
+          }}
+      >
+          {/* <i className="fa-solid fa-plus" /> */}
+          <i className="fa-solid fa-pen-to-square" />
+      </button>
+  );
 }
 
 function SaveButton() {
   const { setSave } = useGlobalState();
   return (
-        <button onClick={ () => {
-          setSave(true)
-        }} className="interactive sidebar-button">
+        <button 
+          title="Save Chat as PNG"
+          className="interactive sidebar-button"
+          onClick={ () => {
+            setSave(true)
+          }}
+        >
           <i className="fa-solid fa-download"/>
         </button>
     )
@@ -28,23 +37,20 @@ function SidebarButton() {
   const {
     sidebar,
     setSidebar,
-    smallScreen,
   } = useGlobalState()
   return (
-        <button onClick={ () => {
-          if (sidebar) {
-            setSidebar(false)
-          } else if (!smallScreen) {
-            setSidebar(true)
-          }
-        }} className="interactive sidebar-button">
+    <button
+      title='Toggle Sidebar'
+      className="interactive sidebar-button"
+      onClick={ () => setSidebar(!sidebar) }
+    >
       {sidebar ? 
-          <i className="fa-solid fa-bars-staggered"></i>
-          :
-          <i className="fa-solid fa-bars"></i>
+        <i className="fa-solid fa-bars-staggered"></i>
+        :
+        <i className="fa-solid fa-bars"></i>
       }
-        </button>
-    )
+    </button>
+  )
 }
 
 function InvisibleButton() {
@@ -54,8 +60,9 @@ function InvisibleButton() {
     </button>
   )
 }
+
 function Buttons() {
-  const { sidebar, smallScreen } = useGlobalState();
+  const { sidebar } = useGlobalState();
   return (
     <>
       <div className="sidebar-buttons">
@@ -63,15 +70,13 @@ function Buttons() {
           <>
             <SidebarButton/>
             <SaveButton/>
-            <NewConversationButton/> 
-          </>
-          : !smallScreen ? 
+            <NewConversationButton/>
+          </> :
           <>
             <SidebarButton/>
             <InvisibleButton/>
             <InvisibleButton/>
           </>
-          : undefined
         }
       </div>
     </>
@@ -86,9 +91,13 @@ function CourseSelect() {
 
   return (
     <div className="option">
-      <h3>Course</h3>
+      <h3 className="sidebar-input-header">Course</h3>
 
-      <select className="interactive select-box" onChange={onChange} value={course}> 
+      <select
+        className="interactive select-box"
+        onChange={onChange}
+        value={course}
+      >
         {Object.values(Course).map((option) => (
           <option key={option} value={option}>
             {option}
@@ -96,51 +105,74 @@ function CourseSelect() {
         ))}
       </select>
     </div>
-  )
+  );
 }
 
 function QuestionTypeSelect() {
   const { question, setQuestion } = useGlobalState()
-  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setQuestion(event.target.value as QuestionType)
-  }
+
   return (
-    <div className="option">
-      <h3>Question Type</h3>
-      <select className="select-box interactive" onChange={onChange} value={question}>
-        {Object.values(QuestionType).map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
+      <div className="option">
+          <h3 className="sidebar-input-header">Question Type</h3>
+
+          <span>
+              {Object.values(QuestionType).map((option, index) => (
+                  <>
+                      <button
+                          key={option}
+                          onClick={() => setQuestion(option)}
+                          className={`select-box-option ${
+                              question === option ? "active" : ""
+                          }`}
+                      >
+                          {option}
+                      </button>
+                      {index < Object.values(QuestionType).length - 1
+                          ? "|"
+                          : ""}
+                  </>
+              ))}
+          </span>
+      </div>
+  );
 }
 
 function BrevitySelect() {
   const { detailLevel, setDetailLevel} = useGlobalState()
-  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setDetailLevel(event.target.value as DetailLevel)
-  }
+
   return (
     <div className="option">
-      <h3>Level of Detail</h3>
-      <select className="select-box interactive" onChange={onChange} value={detailLevel}>
-        {Object.values(DetailLevel).map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-}
+      <h3 className='sidebar-input-header'>Level of Detail</h3>
 
+        <span>
+          {Object.values(DetailLevel).map((option, index) => (
+            <>
+              <button
+                key={option}
+                onClick={() => setDetailLevel(option)}
+                className={`select-box-option ${
+                    detailLevel === option ? "active" : ""
+                }`}
+              >
+                {option}
+              </button>
+              {index < Object.values(DetailLevel).length - 1 ? "|" : ""}
+            </>
+          ))}
+        </span>
+    </div>
+  );
+}
 
 function Attribution() {
   return (
-    <a className="attribution" href="https://www.flaticon.com/free-icons/robot" title="robot icons">Robot icons created by Fajriah Robiatul Adawiah - Flaticon</a>
+    <a 
+      className="attribution" 
+      href="https://www.flaticon.com/free-icons/robot" 
+      target='_blank'
+      title="robot icons">
+        &copy; Robot icons created by Fajriah Robiatul Adawiah - Flaticon
+    </a>
   )
 }
 

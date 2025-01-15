@@ -21,23 +21,24 @@ function Modal() {
     }
     return (
     <>
-
-      <p>hello</p>
+      {/* <p>hello</p> */}
       <div className="course-modal">
-	<div className="course-modal-content">
-	  <p className="modal-text">Select the course you are taking</p>
-	  <select className="interactive select-box" onChange={onChange}> 
-	      {Object.values(Course).map((option) => (
-	      <option key={option} value={option}>
-	      {option}
-	      </option>
-	      ))}
-	  </select>
-	  <button onClick={() => {
-		setShowFirst(false)
-	    }} className="interactive modal-close-button">Done</button>
+	      <div className="course-modal-content">
+	        <div className="modal-text">Select the course you are taking</div>
 
-	</div>
+          <select className="interactive select-box" onChange={onChange}> 
+              {Object.values(Course).map((option) => (
+              <option key={option} value={option}>
+              {option}
+              </option>
+              ))}
+          </select>
+
+          <button onClick={() => {
+          setShowFirst(false)
+            }} className="interactive modal-close-button">Start Chatting</button>
+
+        </div>
       </div>
     </>
   )}
