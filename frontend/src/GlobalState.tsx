@@ -34,7 +34,7 @@ export const useGlobalState = () => {
 
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {
   const [question, setQuestion] = useState(QuestionType.CONCEPT);
-  const [course, setCourse] = useState(Course.MATH203);
+  const [course, setCourse] = useState(Course.COMP335);
   const [detailLevel, setDetailLevel] = useState(DetailLevel.DETAILED);
   const [conversation, setConversation] = useState<Message[]>([]);
   const [chatLoaded, setChatLoaded] = useState<boolean>(false);

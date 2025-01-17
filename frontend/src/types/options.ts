@@ -1,5 +1,5 @@
 export enum Course {
-  MATH203 = "MATH 203",
+  COMP335 = "COMP 335",
 }
 
 export enum DetailLevel {
