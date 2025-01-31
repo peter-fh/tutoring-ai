@@ -6,8 +6,9 @@ import './Modal.css'
 function Modal() {
 
   const { setChatLoaded } = useGlobalState();
-  const [showFirst, setShowFirst] = useState(true);
-  const [hideSecond, setHideSecond] = useState(false);
+  const [showCourseSelect, setShowCourseSelect] = useState(true);
+  const [showTypeSelect, setShowTypeSelect] = useState(true);
+  const [showDislaimer, setShowDisclaimer] = useState(true);
   // TODO: Add "unspecified" option to course and don't allow closing the course modal
   // if unspecified is selected
   // This shouldn't be done until either more courses are added or rapid testing of the UI is not required anymore
@@ -34,7 +35,7 @@ function Modal() {
 	      ))}
 	  </select>
 	  <button onClick={() => {
-		setShowFirst(false)
+	      setShowCourseSelect(false)
 	    }} className="interactive modal-close-button">Done</button>
 
 	</div>
@@ -51,13 +52,11 @@ function Modal() {
 	<div className="type-modal-content">
 	  <p className="modal-text">What type of question do you have?</p>
 	  <button onClick={() => {
-	      setHideSecond(true)
-	      setChatLoaded(true)
+	      setShowTypeSelect(false)
 	      setQuestion(QuestionType.CONCEPT)
 	    }}className="interactive modal-close-button">I have a question about a concept</button>
 	  <button onClick={() => {
-	      setHideSecond(true)
-	      setChatLoaded(true)
+	      setShowTypeSelect(false)
 	      setQuestion(QuestionType.PROBLEM)
 	    }}className="interactive modal-close-button">I have a question about a problem</button>
 
@@ -66,11 +65,28 @@ function Modal() {
     </>
   )}
 
-  return (
-    <>
-      {showFirst ? courseSelectModal() : !hideSecond && typeSelectModal()}
-    </>
-  )
+  const disclaimerModal = () => {
+    return (
+      <>
+      <div id="TypeSelectModal" className="type-modal">
+	<div className="type-modal-content">
+	  <p className="modal-text">This is a placeholder for the disclaimer</p>
+	  <button onClick={() => {
+	      setShowDisclaimer(false)
+	    }}className="interactive modal-close-button">I Accept</button>
+
+	</div>
+      </div>
+      </>
+    )
+  }
+
+
+  if (showDislaimer) return disclaimerModal()
+  if (showCourseSelect) return courseSelectModal()
+  if (showTypeSelect) return typeSelectModal()
+  setChatLoaded(true)
+  return (<></>)
 }
 
 export default Modal
