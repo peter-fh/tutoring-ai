@@ -44,6 +44,7 @@ class GPT:
                 max_tokens=300
             )   
         except:
+            print("Transcription error")
             return "There is supposed to be a transcription of an image, but there was a fatal error."
 
         transcription = str(response.choices[0].message.content)
@@ -79,6 +80,7 @@ class GPT:
                 max_tokens=300
             )   
         except:
+            print("Summary error")
             return "There is supposed to be a summary here, but a fatal error has occurred."
 
 
@@ -121,6 +123,7 @@ class GPT:
                 stream=True,
             )
         except:
+            print("Ask error")
             yield "This service is currently unavailable, sorry!"
             return
 
