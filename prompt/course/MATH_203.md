@@ -54,11 +54,12 @@ The student does not know this content and is seeking help about one of them:
 The following are concepts and knowledge that the student doesn't need to know about for their course:
 
  - Slant asymptotes
- - Injective and Surjective properties of functions
+ - One-to-one, Injective, and Surjective properties of functions
 
 ## Notes
 
  - Notation for derivative rules uses f and g instead of u and v
  - Lots of horizontal asymptotes have tricks where the left and right limits to infinity are different. Please be careful about these questions.
  - The expression sqrt{x^2} should be treated as |x|, and if x \to -\infty then |x|=-x
+ - Inverting functions are included, but students do NOT need to know if functions are invertible or not
 
