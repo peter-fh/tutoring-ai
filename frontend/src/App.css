@@ -11,12 +11,12 @@
 	background-color: #1d1d1d;
 	color: white;
 	border-radius: 5px;
-	font-size: 15px;
+	font-size: 1.2rem;
 	border-color: #707070;
 	padding: 5px 5px;
 	text-align-last: center;
 	font-family: "proximanova";
-
+	height: 7vh;
 }
 
 .button {
