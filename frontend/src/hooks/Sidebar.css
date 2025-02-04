@@ -2,18 +2,14 @@
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	align-items: center;
-	justify-content: center;
 	position: fixed;
 	width: 15em;
-	margin-right: 0;
-	margin-left: 0;
-	padding: 0 0 0 0;
 	left: 0;
-	height: 100vh;
+	height: 100%;
 	background-color: #1d1d1d;
 	z-index: 12;
 	overflow-y: auto;
+  row-gap: 10vh;
 }
 
 .hidden-sidebar {
@@ -28,25 +24,23 @@
 	margin-left: 0;
 	padding: 0 0 0 0;
 	left: 0;
-	height: 0;
-	background-color: #1d1d1d;
+	height: auto;
 	z-index: 12;
 	overflow-y: auto;
 }
 
 
 .attribution {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 15em;
 	margin-bottom: 1em;
 	color: inherit;
+  font-size: 0.7rem;
+  margin-top: auto;
 }
 
 .sidebar-buttons {
-	position: fixed;
-	top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .sidebar-button{
@@ -77,5 +71,44 @@
 }
 
 .options {
-	transform: translateY(-10%)
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+}
+
+.option > .sidebar-input-header {
+  margin-top: 0;
+  font-size: 1.3em;
+}
+
+.sidebar-select-box {
+	height: 7vh;
+	background-color: #1d1d1d;
+	color: white;
+	border-radius: 5px;
+	font-size: 15px;
+	border-color: #707070;
+	padding: 5px 5px;
+	text-align-last: center;
+	font-family: "proximanova";
+}
+
+.select-box-option.active {
+	background: #114444;
+	border-radius: 0.3rem;
+	text-shadow:
+		0 0 3px #aaa,
+		0 0 6px #114444;
+}
+
+.select-box-option {
+	margin: 0 0.2rem 0 0.2rem;
+	appearance: none;
+	background: none;
+	border: none;
+	color: inherit;
+	cursor: pointer; 
+	font-family: inherit;
+	font-size: 1.2rem;
 }
