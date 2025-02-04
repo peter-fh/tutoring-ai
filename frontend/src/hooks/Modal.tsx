@@ -36,19 +36,6 @@ function Modal() {
 	      setShowCourseSelect(false)
 	    }} className="interactive modal-close-button">Done</button>
 
-
-          <select className="interactive select-box" onChange={onChange}> 
-              {Object.values(Course).map((option) => (
-              <option key={option} value={option}>
-              {option}
-              </option>
-              ))}
-          </select>
-
-          <button onClick={() => {
-          setShowCourseSelect(false)
-            }} className="interactive modal-close-button">Start Chatting</button>
-
         </div>
       </div>
     </>
