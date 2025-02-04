@@ -22,8 +22,6 @@ function Modal() {
     }
     return (
     <>
-
-      <p>hello</p>
       <div className="course-modal">
 	<div className="course-modal-content">
 	  <p className="modal-text">Select the course you are taking</p>
@@ -38,7 +36,20 @@ function Modal() {
 	      setShowCourseSelect(false)
 	    }} className="interactive modal-close-button">Done</button>
 
-	</div>
+
+          <select className="interactive select-box" onChange={onChange}> 
+              {Object.values(Course).map((option) => (
+              <option key={option} value={option}>
+              {option}
+              </option>
+              ))}
+          </select>
+
+          <button onClick={() => {
+          setShowCourseSelect(false)
+            }} className="interactive modal-close-button">Start Chatting</button>
+
+        </div>
       </div>
     </>
   )}
