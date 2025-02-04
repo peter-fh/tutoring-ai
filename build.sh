@@ -1,7 +1,12 @@
+indent() { sed 's/^/    /'; }
+
 cd frontend
-npm install
-npm run build
+echo 'Installing Frontend Dependencies'
+npm install | indent
+echo '\nBuilding Frontend'
+npm run build | indent
 cd ..
 python -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+echo '\nInstalling Server Dependencies'
+pip install -r requirements.txt | indent
