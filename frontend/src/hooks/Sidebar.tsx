@@ -94,7 +94,7 @@ function CourseSelect() {
       <h3 className="sidebar-input-header">Course</h3>
 
       <select
-        className="interactive select-box"
+        className="interactive sidebar-select-box"
         onChange={onChange}
         value={course}
       >
