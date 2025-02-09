@@ -68,15 +68,15 @@ function Modal() {
   const disclaimerModal = () => {
     return (
       <>
-      <div id="TypeSelectModal" className="type-modal">
-	<div className="type-modal-content">
+      <div id="DisclaimerModal" className="type-modal">
+	<div className="disclaimer-modal-content">
 	  <p className="modal-text">
 	      <h2>
 		Disclaimer
 	      </h2>
 
 	      <p> 
-This bot is designed to assist Concordia University students in understanding basic Calculus concepts, solving problems, and enhancing their learning experience. However, it is important to note that this bot should not be used in any way that leads to plagiarism in any form. Also, note this bot is not to replace lectures, classes, or group projects. 
+This bot is designed to assist Concordia University students in understanding basic Calculus concepts, solving problems, and enhancing their learning experience. This bot is not to replace lectures, classes, or group projects. 
 	      </p>
 
 	      <p> 
@@ -85,20 +85,13 @@ By using this tool, you agree to the following:
 
 	      <ol>
 		<li>
-Independent Work: The bot is intended to help you understand concepts and guide your learning. It is not to replace your own effort or the completion of assignments. You are responsible for completing your academic work independently.
+Accuracy: Gen AI can make mistakes. It is the student's responsibility to double check any answers they are given.
 		</li>
 
 		<li>
-Academic Integrity: Plagiarism, including submitting work that is generated or assisted by AI tools as your own without proper understanding or citation, is a violation of academic integrity policies. Always adhere to your institution's code of conduct and your professor's guidelines as per how and to what extent Gen AI can be used in your studies for each particular course and honor the values of honesty and originality in your studies.
+Academic Integrity: Plagiarism, including submitting work that is generated or assisted by AI tools as your own without proper understanding or citation, is a violation of academic integrity policies. Always adhere to your professor's guidelines as per how and to what extent Gen AI can be used in your studies.
 		</li>
 
-		<li>
-Accuracy: Also note that Gen AI can make mistakes. It is the student's responsibility to double check any answers they are given.
-		</li>
-
-		<li>
-Guidance Only: The solutions and explanations provided by this tool are meant to serve as guidance. It is crucial to verify the results, understand the reasoning, and engage in your own learning process.
-		</li>
 
 </ol>
 By continuing to use this tool, you acknowledge that you are using it ethically and responsibly to enhance your understanding of the material, while upholding academic honesty and integrity.
